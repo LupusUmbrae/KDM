@@ -18,7 +18,7 @@
   
   function jsonify(scope) {
     console.log(scope.kdm);
-    console.log(JSON.stringify(scope.kdm));
+    return JSON.stringify(scope.kdm);
   }
   
   function load(scope, json) {
@@ -29,7 +29,7 @@
 
   function run($rootScope) {
     $rootScope.jsonify = function() {
-      jsonify($rootScope);
+      return jsonify($rootScope);
     }
     
     $rootScope.load = function(json) {

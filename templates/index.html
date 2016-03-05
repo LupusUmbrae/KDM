@@ -39,7 +39,7 @@
           <ng-include src="'static/templates/attributes.html'"></ng-include>
           <ng-include src="'static/templates/brain.html'"></ng-include>
           <ng-include src="'static/templates/armour.html'"></ng-include>
-          <button ng-click="jsonify()">To JSON</button>
+          <button id="savejson">To JSON</button>
           <button id="loadjson">From JSON</button>
         </div>
         <div class="col-md-5 col-md-offset-1">
@@ -58,18 +58,23 @@
       </div>
     </div>
     
-    <div id="dialog" title="From JSON">
+    <div id="load-dialog" title="From JSON">
       <p>Paste JSON below</p>
       <textarea rows="10" id="loadjson"></textarea>
+    </div>
+    
+    <div id="save-dialog" title="From JSON">
+      <p>Copy JSON below</p>
+      <textarea rows="10" id="savejson" disabled="true"></textarea>
     </div>
     
     <script type="text/javascript" src='static/javascript/kdm.js'></script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'></script>
     <script>
       $(function() {
-        $( "#dialog" ).dialog({
+        $( "#load-dialog" ).dialog({
           autoOpen: false,
-          resizable: false,
+          resizable: true,
           height:400,
           modal: true,
           buttons: {
@@ -83,7 +88,17 @@
           }
         });
         $( "#loadjson" ).click(function() {
-          $( "#dialog" ).dialog( "open" );
+          $( "#load-dialog" ).dialog( "open" );
+        });
+        
+        $( "#save-dialog" ).dialog({
+          autoOpen: false,
+          resizable: true,
+          height:400,
+        });
+        $( "#savejson" ).click(function() {
+          $('textarea#savejson').val(angular.element(document.body).scope().jsonify());
+          $( "#save-dialog" ).dialog( "open" );
         });
       });
   </script>
