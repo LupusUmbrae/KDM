@@ -1,0 +1,18 @@
+<div class="row element" ng-repeat="record in kdm.records">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <big>{{record.name}}</big> <small>{{record.limit}}</small>
+      </div>
+      <div class="col-md-6" ng-show="record.checkbox">
+        <input type="checkbox" checked="{{record.checkbox.value}}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>{{record.checkbox.text}}
+      </div>
+    </div>
+    
+    <div class="row" ng-repeat="n in record.lines track by $index">
+      <div class="col-md-12">
+        <input type="text" value="{{n}}" ng-model="record.lines[$index]">
+      </div>
+    </div>
+  </div>
+</div>
