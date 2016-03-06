@@ -7,15 +7,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
+        <input type="checkbox" ng-repeat="level in kdm.understanding.levels" ng-class="{level : $level.level}" ng-model="level.value">
       </div>
     </div>
     <div class="row">
@@ -38,7 +30,7 @@
         <hr>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage">
+            <input type="radio" name="understanding" value="analyze" ng-model="kdm.understanding.insight">
           </div>
           <div class="col-md-10">
             <small><strong>Analyze</strong>: Look at top AI card and return it to the top of the deck.</small>
@@ -46,7 +38,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage">
+            <input type="radio" name="understanding" value="explore" ng-model="kdm.understanding.insight">
           </div>
           <div class="col-md-10">
             <hr style="margin: 0px">
@@ -55,7 +47,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage">
+            <input type="radio" name="understanding" value="tinker" ng-model="kdm.understanding.insight">
           </div>
           <div class="col-md-10">
             <hr style="margin: 0px">

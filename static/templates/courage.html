@@ -7,15 +7,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
-        <input type="checkbox">
+        <input type="checkbox" ng-repeat="level in kdm.courage.levels" ng-class="{level : $level.level}" ng-model="level.value">
       </div>
     </div>
     <div class="row">
@@ -38,7 +30,7 @@
         <hr>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage">
+            <input type="radio" name="courage" value="stalwart" ng-model="kdm.courage.bold">
           </div>
           <div class="col-md-10">
             <small><strong>Stalwart</strong>: can't be knocked down by brain trauma or intimidate.</small>
@@ -46,7 +38,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage">
+            <input type="radio" name="courage" value="prepared" ng-model="kdm.courage.bold">
           </div>
           <div class="col-md-10">
             <hr style="margin: 0px">
@@ -55,7 +47,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage">
+            <input type="radio" name="courage" value="matchmaker" ng-model="kdm.courage.bold">
           </div>
           <div class="col-md-10">
             <hr style="margin: 0px">
