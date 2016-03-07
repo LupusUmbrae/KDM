@@ -13,5 +13,7 @@ make sure the `root` for the web server is the root of the git repo
 
 ## Built with..
 [Bootstrap](http://getbootstrap.com/) - Used extensively for the layout
+
 [AngularJS](https://angularjs.org/) - Used to handle the saving/loading and to make my life much easier with includes and looping
+
 [JQuery](https://jquery.com/) & [JQueryUI](https://jqueryui.com/) - Used to handle the save/load popups
