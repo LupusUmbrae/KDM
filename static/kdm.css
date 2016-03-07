@@ -1,0 +1,39 @@
+.bordered {
+    border: 1px solid black;
+}
+
+.element {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px 5px;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.attr {
+    border-left: 1px solid black;
+    padding: 5px;
+}
+
+input.underlined {
+    border: 0;
+    border-bottom: 1px solid black;
+}
+
+input.fullwidth {
+    width: 100%;
+}
+
+input.noborder {
+    border: 0;
+}
+
+input {
+    border: 1px solid black;
+}
+
+hr {
+    border-top: 1px solid black;
+}
