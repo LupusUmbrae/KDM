@@ -2,33 +2,10 @@
   <head>
     
     <base href="/" />
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-
+       
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    
-    <style>
-      .bordered {
-        border: 1px solid black;
-      }
-      
-      .element {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding: 5px 5px;
-      }
-      
-      .attr {
-        border-left: 1px solid black; 
-        padding: 5px;
-      }
-    </style>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="static/kdm.css">
   </head>
   <body>
     <div ng-view class="container">
@@ -49,7 +26,7 @@
             <div class="col-md-6" style="padding: 0px;">
               <ng-include src="'static/templates/courage.html'"></ng-include>
             </div>
-            <div class="col-md-6" style="border-left: 1px solid black; padding: 5px">
+            <div class="col-md-6" style="border-left: 1px solid black; padding: 0px">
               <ng-include src="'static/templates/understanding.html'"></ng-include>
             </div>
           </div>
@@ -67,6 +44,11 @@
       <p>Copy JSON below</p>
       <textarea rows="10" id="savejson" disabled="true"></textarea>
     </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     
     <script type="text/javascript" src='static/javascript/kdm.js'></script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'></script>

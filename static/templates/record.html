@@ -4,14 +4,14 @@
       <div class="col-md-6">
         <big>{{record.name}}</big> <small>{{record.limit}}</small>
       </div>
-      <div class="col-md-6" ng-show="record.checkbox">
-        <input type="checkbox" ng-model="record.checkbox.value"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>{{record.checkbox.text}}
+      <div class="col-md-6 right-align" ng-show="record.checkbox">
+        <input type="checkbox" ng-model="record.checkbox.value"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span><small>{{record.checkbox.text}}</small>
       </div>
     </div>
     
     <div class="row" ng-repeat="n in record.lines track by $index">
       <div class="col-md-12">
-        <input type="text" value="{{n}}" ng-model="record.lines[$index]">
+        <input type="text" class="underlined fullwidth" ng-model="record.lines[$index]">
       </div>
     </div>
   </div>

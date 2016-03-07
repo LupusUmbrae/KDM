@@ -197,7 +197,6 @@
         
         var abilitiesImpairments = {};
         abilitiesImpairments.name = "Abilities & Impairments";
-        abilitiesImpairments.limit = "Maximum 3";
         abilitiesImpairments.checkbox = {};
         abilitiesImpairments.checkbox.text = "Skip Next Hunt";
         abilitiesImpairments.checkbox.value = false;
