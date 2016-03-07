@@ -1,5 +1,5 @@
 # Kingdom Death Monster - Web Forms
-An attempt to create a small, simple(ish) web form for the KDM Character sheet and Lantern Hoard sheet. 
+An attempt to create a small, simple(ish) web form for the [KDM](http://kingdomdeath.com/) Character sheet and Lantern Hoard sheet. 
 
 Currently aiming to make the forms look like the sheets from KDM and allow saving/loading via JSON output
 
@@ -14,3 +14,4 @@ make sure the `root` for the web server is the root of the git repo
 ## Built with..
 [Bootstrap](http://getbootstrap.com/) - Used extensively for the layout
 [AngularJS](https://angularjs.org/) - Used to handle the saving/loading and to make my life much easier with includes and looping
+[JQuery](https://jquery.com/) & [JQueryUI](https://jqueryui.com/) - Used to handle the save/load popups
