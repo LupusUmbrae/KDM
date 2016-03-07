@@ -14,7 +14,8 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <input type="checkbox" checked="true" disabled="true"> Heavy Injury: Knocked Down
+            <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+            Heavy Injury: Knocked Down
           </div>
         </div>
       </div>
@@ -22,10 +23,16 @@
       <div class="col-md-2">
         <div class="row">
           <div class="col-md-6">
-            <input type="checkbox" ng-show="area.light != undefined" ng-model="area.light">
+            <label>
+              <input type="checkbox" ng-show="area.light != undefined" ng-model="area.light">
+              <span></span>
+            </label>
           </div>
           <div class="col-md-6">
-            <input type="checkbox" ng-model="area.heavy">
+            <label>
+              <input type="checkbox" ng-model="area.heavy" class="level">
+              <span></span>
+            </label>
           </div>
         </div>
         <div class="row">

@@ -3,36 +3,39 @@
     Hunt XP
   </div>
   <div class="col-md-8">
-    <input type="checkbox" ng-repeat="agebox in kdm.age" ng-class="{level: agebox.level, retire: agebox.retire}" ng-model="agebox.value">
+    <label ng-repeat="agebox in kdm.age track by $index"  for="age-{{$index}}">
+      <input type="checkbox" ng-class="{level: agebox.level, retire: agebox.retire}" ng-model="agebox.value" id="age-{{$index}}"><span></span>
+    </label>
   </div>
 </div>
 <div class="row">
   <hr style="margin: 0px">
   <div class="col-md-12" style="padding-left: 5px; padding-right: 5px;">
-    <input type="checkbox" checked="true" disabled="true">
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
     <!-- TODO: Make the icon change to an open book when the righ age is reached... -->
     <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
     <small>Age</small>
-
-    <input type="checkbox" checked="true" disabled="true">
-    <input type="checkbox" checked="true" disabled="true">
-    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
-    <small>Age</small>
-
-    <input type="checkbox" checked="true" disabled="true">
-    <input type="checkbox" checked="true" disabled="true">
-    <input type="checkbox" checked="true" disabled="true">
-    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
-    <small>Age</small>
-
-    <input type="checkbox" checked="true" disabled="true">
-    <input type="checkbox" checked="true" disabled="true">
-    <input type="checkbox" checked="true" disabled="true">
-    <input type="checkbox" checked="true" disabled="true">
+    
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
     <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
     <small>Age</small>
     
-    <input type="checkbox" checked="true" disabled="true">
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
+    <small>Age</small>
+    
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+    <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
+    <small>Age</small>
+    
+    
+    <img class="filled-square" src="static/images/filled-retire.svg" width="10" height="10">
     <small>Retired</small>
   </div>
 </div>

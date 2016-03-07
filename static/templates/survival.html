@@ -11,7 +11,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <input type="checkbox" ng-model="kdm.survival.cannotspend"> <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cannot spend survival
+        <label>
+          <input type="checkbox" ng-model="kdm.survival.cannotspend">
+          <span></span>
+        </label>
+        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cannot spend survival
       </div>
     </div>
   </div>
@@ -19,16 +23,29 @@
   <div class="col-md-3">
     <div class="row">
       <div class="col-md-12">
-        <input type="checkbox" checked="true" disabled="true"> Dodge
+        <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+        Dodge
       </div>
       <div class="col-md-12">
-          <input type="checkbox" ng-model="kdm.survival.encourage"> Encourage
+        <label>
+          <input type="checkbox" ng-model="kdm.survival.encourage" class="mini">
+          <span></span>
+        </label>
+        Encourage
       </div>
       <div class="col-md-12">
-          <input type="checkbox" ng-model="kdm.survival.surge"> Surge
+        <label>
+          <input type="checkbox" ng-model="kdm.survival.surge" class="mini">
+          <span></span>
+        </label>
+        Surge
       </div>
       <div class="col-md-12">
-          <input type="checkbox" ng-model="kdm.survival.dash"> Dash
+        <label>
+          <input type="checkbox" ng-model="kdm.survival.dash" class="mini">
+          <span></span>
+        </label>
+        Dash
       </div>
     </div>
   </div>

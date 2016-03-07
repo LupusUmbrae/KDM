@@ -7,19 +7,22 @@
     </div>
     <div class="row" style="padding: 5px">
       <div class="col-md-12">
-        <input type="checkbox" ng-repeat="level in kdm.understanding.levels" ng-class="{level : $level.level}" ng-model="level.value">
+        <label ng-repeat="level in kdm.understanding.levels" >
+          <input type="checkbox" ng-class="{level : level.level}" ng-model="level.value">
+          <span></span>
+        </label>
       </div>
     </div>
     <div class="row" style="padding: 5px">
       <div class="col-md-12">
         <div class="col-md-5" style="padding-left: 5px; padding-right: 5px;">
-          <input type="checkbox" checked="true" disabled="true">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
           <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
           <small>Insight</small>
         </div>
         <div class="col-md-7" style="padding-left: 5px; padding-right: 5px;">
-          <input type="checkbox" checked="true" disabled="true">
-          <input type="checkbox" checked="true" disabled="true">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
           <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
           <small>White Secret</small>
         </div>
@@ -34,7 +37,7 @@
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="understanding" value="analyze" ng-model="kdm.understanding.insight">
+            <label><input type="radio" name="understanding" value="analyze" ng-model="kdm.understanding.insight"><span></span></label>
           </div>
           <div class="col-md-10">
             <small><strong>Analyze</strong>: Look at top AI card and return it to the top of the deck.</small>
@@ -42,7 +45,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="understanding" value="explore" ng-model="kdm.understanding.insight">
+            <label><input type="radio" name="understanding" value="explore" ng-model="kdm.understanding.insight"><span></span></label>
           </div>
           <div class="col-md-10">
             <hr style="margin: 0px">
@@ -51,7 +54,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="understanding" value="tinker" ng-model="kdm.understanding.insight">
+            <label><input type="radio" name="understanding" value="tinker" ng-model="kdm.understanding.insight"><span></span></label>
           </div>
           <div class="col-md-10">
             <hr style="margin: 0px">

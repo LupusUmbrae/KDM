@@ -22,18 +22,21 @@
   <div class="col-md-6">
     <div class="row">
       <div class="col-md-12">
-        <input type="checkbox" ng-repeat="level in kdm.weapon.levels" ng-class="{level : $level.level}" ng-model="level.value">
+        <label ng-repeat="level in kdm.weapon.levels" >
+          <input type="checkbox" ng-class="{level : level.level}" ng-model="level.value">
+          <span></span>
+        </label>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <div class="col-md-6">
-          <input type="checkbox" checked="true" disabled="true">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
           <small>Specialist</small>
         </div>
         <div class="col-md-6">
-          <input type="checkbox" checked="true" disabled="true">
-          <input type="checkbox" checked="true" disabled="true">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
           <small>Master</small>
         </div>
       </div>

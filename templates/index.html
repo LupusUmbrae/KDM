@@ -82,6 +82,22 @@
           $('textarea#savejson').val(angular.element(document.body).scope().jsonify());
           $( "#save-dialog" ).dialog( "open" );
         });
+        $("input:checkbox").each(function() {
+            $(this).hide();
+
+            var $image = $("<img src='static/images/checkbox-unchecked.svg' />").insertAfter(this);    
+
+            $image.click(function() {
+                var $checkbox = $(this).prev(".check");
+                $checkbox.prop('checked', !$checkbox.prop('checked'));
+
+                if($checkbox.prop("checked")) {
+                    $image.attr("src", "static/images/checkbox-checked.svg");
+                } else {
+                    $image.attr("src", "static/images/checkbox-unchecked.svg");
+                }
+            })
+        });
       });
   </script>
   </body>

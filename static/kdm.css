@@ -37,3 +37,129 @@ input {
 hr {
     border-top: 1px solid black;
 }
+
+label input[type=checkbox] {
+    display: none;
+}
+
+label input[type=radio] {
+    display: none;
+}
+
+label.radio-inline {
+    padding-left: 0;
+}
+
+label input[type=checkbox] + span
+{
+    background: url('images/checkbox-unchecked.svg') 0 0px no-repeat;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=radio] + span
+{
+    background: url('images/radio-unchecked.svg') 0 0px no-repeat;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=radio].radio-box + span
+{
+    background: url('images/checkbox-unchecked.svg') 0 0px no-repeat;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=checkbox].mini + span
+{
+    background: url('images/checkbox-unchecked-mini.svg') no-repeat;
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=checkbox].level + span
+{
+    background: url('images/checkbox-heavy.svg') 0 0px no-repeat;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=checkbox].retire + span
+{
+    background: url('images/checkbox-retire.svg') 0 0px no-repeat;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=checkbox]:checked + span
+{
+    background: url('images/checkbox-checked.svg') 0 0px no-repeat;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=checkbox]:checked.mini + span
+{
+    background: url('images/checkbox-checked.svg') 0 0px no-repeat;
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=radio]:checked.radio-box + span
+{
+    background: url('images/checkbox-checked.svg') 0 0px no-repeat;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+label input[type=radio]:checked + span
+{
+    background: url('images/radio-checked.svg') 0 0px no-repeat;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.filled-square {
+    margin-bottom: 3px;
+}

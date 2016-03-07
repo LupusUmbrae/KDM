@@ -7,19 +7,22 @@
     </div>
     <div class="row" style="padding: 5px">
       <div class="col-md-12">
-        <input type="checkbox" ng-repeat="level in kdm.courage.levels" ng-class="{level : $level.level}" ng-model="level.value">
+        <label ng-repeat="level in kdm.courage.levels">
+          <input type="checkbox" ng-class="{level : level.level}" ng-model="level.value">
+          <span></span>
+        </label>
       </div>
     </div>
     <div class="row" style="padding: 5px">
       <div class="col-md-12">
         <div class="col-md-5" style="padding-left: 5px; padding-right: 5px;">
-          <input type="checkbox" checked="true" disabled="true">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
           <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
           <small>Bold</small>
         </div>
         <div class="col-md-7" style="padding-left: 5px; padding-right: 5px;">
-          <input type="checkbox" checked="true" disabled="true">
-          <input type="checkbox" checked="true" disabled="true">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
+          <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
           <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
           <small>See the Truth</small>
         </div>
@@ -34,7 +37,7 @@
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage" value="stalwart" ng-model="kdm.courage.bold">
+            <label><input type="radio" name="courage" value="stalwart" ng-model="kdm.courage.bold"><span></span></label>
           </div>
           <div class="col-md-10">
             <small><strong>Stalwart</strong>: can't be knocked down by brain trauma or intimidate.</small>
@@ -42,7 +45,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage" value="prepared" ng-model="kdm.courage.bold">
+            <label><input type="radio" name="courage" value="prepared" ng-model="kdm.courage.bold"><span></span></label>
           </div>
           <div class="col-md-10">
             <hr style="margin: 0px">
@@ -51,7 +54,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <input type="radio" name="courage" value="matchmaker" ng-model="kdm.courage.bold">
+            <label><input type="radio" name="courage" value="matchmaker" ng-model="kdm.courage.bold"><span></span></label>
           </div>
           <div class="col-md-10">
             <hr style="margin: 0px">
