@@ -131,7 +131,7 @@
         kdm.age = age;
         
         // WEAPON PROFICIENCY
-
+        
         var weapon = {};
         weapon.type = "";
         weapon.levels = [];
@@ -143,7 +143,7 @@
             weapon.levels.push(level);
         }
         kdm.weapon = weapon;
-
+        
         // COURAGE
         
         var courage = {};
@@ -217,5 +217,105 @@
         kdm.records = records;
         
         $rootScope.kdm = kdm;
+        
+        $rootScope.$watch('kdm.courage.levels', function(newVal, oldVal) {
+            if (newVal !== oldVal) 
+            {
+                // find the changed index
+                var index = -1;
+                for (var i = 0; i < newVal.length; i++) 
+                {
+                    if (oldVal[i].value !== newVal[i].value) {
+                        index = i;
+                        break;
+                    }
+                }
+                var value = newVal[index].value;
+                if (value) {
+                    for (var i = 0; i < index; i++) {
+                        $rootScope.kdm.courage.levels[i].value = true;
+                    }
+                } else {
+                    for (var i = newVal.length - 1; i > index; i--) {
+                        $rootScope.kdm.courage.levels[i].value = false;
+                    }
+                }
+            }
+        }, true);
+        
+        $rootScope.$watch('kdm.understanding.levels', function(newVal, oldVal) {
+            if (newVal !== oldVal) 
+            {
+                // find the changed index
+                var index = -1;
+                for (var i = 0; i < newVal.length; i++) 
+                {
+                    if (oldVal[i].value !== newVal[i].value) {
+                        index = i;
+                        break;
+                    }
+                }
+                var value = newVal[index].value;
+                if (value) {
+                    for (var i = 0; i < index; i++) {
+                        $rootScope.kdm.understanding.levels[i].value = true;
+                    }
+                } else {
+                    for (var i = newVal.length - 1; i > index; i--) {
+                        $rootScope.kdm.understanding.levels[i].value = false;
+                    }
+                }
+            }
+        }, true);
+
+        $rootScope.$watch('kdm.age', function(newVal, oldVal) {
+            if (newVal !== oldVal) 
+            {
+                // find the changed index
+                var index = -1;
+                for (var i = 0; i < newVal.length; i++) 
+                {
+                    if (oldVal[i].value !== newVal[i].value) {
+                        index = i;
+                        break;
+                    }
+                }
+                var value = newVal[index].value;
+                if (value) {
+                    for (var i = 0; i < index; i++) {
+                        $rootScope.kdm.age[i].value = true;
+                    }
+                } else {
+                    for (var i = newVal.length - 1; i > index; i--) {
+                        $rootScope.kdm.age[i].value = false;
+                    }
+                }
+            }
+        }, true);
+
+        $rootScope.$watch('kdm.weapon.levels', function(newVal, oldVal) {
+            if (newVal !== oldVal) 
+            {
+                // find the changed index
+                var index = -1;
+                for (var i = 0; i < newVal.length; i++) 
+                {
+                    if (oldVal[i].value !== newVal[i].value) {
+                        index = i;
+                        break;
+                    }
+                }
+                var value = newVal[index].value;
+                if (value) {
+                    for (var i = 0; i < index; i++) {
+                        $rootScope.kdm.weapon.levels[i].value = true;
+                    }
+                } else {
+                    for (var i = newVal.length - 1; i > index; i--) {
+                        $rootScope.kdm.weapon.levels[i].value = false;
+                    }
+                }
+            }
+        }, true);
     }
 })();

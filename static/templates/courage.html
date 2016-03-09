@@ -17,13 +17,15 @@
       <div class="col-md-12">
         <div class="col-md-5" style="padding-left: 5px; padding-right: 5px;">
           <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
-          <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
+          <img src="static/images/book-open.svg" width="15" height="15" ng-show="kdm.courage.levels[2].value">
+          <img src="static/images/book-closed.svg" width="15" height="15" ng-hide="kdm.courage.levels[2].value">
           <small>Bold</small>
         </div>
         <div class="col-md-7" style="padding-left: 5px; padding-right: 5px;">
           <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
           <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
-          <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
+          <img src="static/images/book-open.svg" width="15" height="15" ng-show="kdm.courage.levels[8].value">
+          <img src="static/images/book-closed.svg" width="15" height="15" ng-hide="kdm.courage.levels[8].value">
           <small>See the Truth</small>
         </div>
       </div>

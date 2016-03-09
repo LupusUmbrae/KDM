@@ -1,12 +1,12 @@
 <div class="row bordered element" style="padding: 0px;">
   <div class="col-md-2" ng-repeat="attr in kdm.attrs" style="padding: 5px" ng-class="{attr:!$first}">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 attr-val">
         <input type="text" size="1" ng-model="attr.value">
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 attr-name">
         <small>{{attr.name}}</small>
       </div>
     </div>

@@ -163,3 +163,40 @@ label input[type=radio]:checked + span
 .filled-square {
     margin-bottom: 3px;
 }
+
+.sheild {
+    background-image: url('images/shield.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px;
+    height: 40px;
+    display: table-cell;
+}
+
+.sheild input[type=text] {
+    background: rgba(0,0,0,0);
+    border: 0;
+    text-align: center;
+    margin-top: 3px;
+}
+
+.sheild input[type=text]:focus {
+    outline: none;
+}
+
+.survival {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.attr-val {
+    text-align: center;
+}
+
+.attr-name {
+    text-align:center;
+}
+
+input[type=text] {
+    text-align: center;
+}
