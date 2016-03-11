@@ -1,36 +1,36 @@
 <div class="row element" ng-repeat="area in kdm.armour">
-  <div class="col-md-12">
+  <div class="col-xs-12">
     <div class="row fill-vertical">
-      <div class="col-md-2">
+      <div class="col-xs-2">
         <div class="sheild">
           <input type="text" size="1" placeholder="0" ng-model="area.value" maxlength="2" size="2">
         </div>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-xs-8">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-xs-12">
           <img src="static/images/{{area.name | lowercase}}.svg" width="20" height="20">
             <big><strong>{{area.name}}</strong></big>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-xs-12">
             <img class="filled-square" src="static/images/filled-square.svg" width="10" height="10">
             Heavy Injury: Knocked Down
           </div>
         </div>
       </div>
 
-      <div class="col-md-2">
+      <div class="col-xs-2">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-xs-6">
             <label ng-show="area.light != undefined" >
               <input type="checkbox" ng-model="area.light">
               <span></span>
             </label>
           </div>
-          <div class="col-md-6">
+          <div class="col-xs-6">
             <label>
               <input type="checkbox" ng-model="area.heavy" class="level">
               <span></span>
@@ -38,10 +38,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-xs-6">
             <p ng-show="area.light != undefined">L</p>
           </div>
-          <div class="col-md-6">
+          <div class="col-xs-6">
             H
           </div>
         </div>

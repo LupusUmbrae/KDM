@@ -13,21 +13,20 @@
     .module('kdm')
     .run(run);
     
-    run.$inject = ['$rootScope'];
-    jsonify.$inject = ['$rootScope'];
+    run.$inject = ['$rootScope', '$parse'];
     
     function jsonify(scope) {
-        console.log(scope.kdm);
-        return JSON.stringify(scope.kdm);
+        console.log(scope.tabs);
+        return JSON.stringify(scope.tabs);
     }
     
     function load(scope, json) {
         var parsed = JSON.parse(json);
-        scope.kdm = parsed;
+        scope.tabs = parsed;
         scope.$apply();
     }
     
-    function run($rootScope) {
+    function run($rootScope, $parse) {
         $rootScope.jsonify = function() {
             return jsonify($rootScope);
         }
@@ -35,10 +34,73 @@
         $rootScope.load = function(json) {
             load($rootScope, json);
         }
+
+        $rootScope.addChar = function(json) {
+            addNewChar($rootScope);
+        }
         
-        // TODO: Can we make this nicer? too many lines :(
+        $rootScope.tabs = [];
+        
+        addToTabs($rootScope, createEmptyCharSheet("tab-0"));
+    
+    }
+
+    function addNewChar(scope) {
+        var id = "tab-" + scope.tabs.length;
+        addToTabs(scope, createEmptyCharSheet(id));
+    }
+    
+    function addToTabs(scope, kdm) {
+        var tabs = scope.tabs;
+        tabs.push(kdm);
+        var lastIndex = tabs.length - 1;
+        
+        if (kdm.type === "char") {
+            scope.$watch('tabs[' + lastIndex + '].courage.levels', watchCheckboxArray, true);
+            scope.$watch('tabs[' + lastIndex + '].understanding.levels', watchCheckboxArray, true);
+            scope.$watch('tabs[' + lastIndex + '].age', watchCheckboxArray, true);
+            scope.$watch('tabs[' + lastIndex + '].weapon.levels', watchCheckboxArray, true);
+        }
+    }
+    
+    function watchCheckboxArray(newVal, oldVal) {
+        if (newVal !== oldVal) 
+        {
+            // find the changed index
+            var index = -1;
+            for (var i = 0; i < newVal.length; i++) 
+            {
+                if (oldVal[i].value !== newVal[i].value) {
+                    index = i;
+                    break;
+                }
+            }
+            
+            if (index === -1) {
+                return;
+            }
+            
+            var value = newVal[index].value;
+            if (value) {
+                for (var i = 0; i < index; i++) {
+                    newVal[i].value = true;
+                }
+            } else {
+                for (var i = newVal.length - 1; i > index; i--) {
+                    newVal[i].value = false;
+                }
+            }
+        }
+    }
+    
+    function createEmptyCharSheet(id) {
         
         var kdm = {};
+        kdm.id = id;
+        kdm.type = "char";
+        kdm.template = "static/templates/char.html"
+        
+        // TODO: Can we make this nicer? too many lines :(
         
         // NAME
         var name = {};
@@ -215,107 +277,6 @@
         records.push(abilitiesImpairments);
         
         kdm.records = records;
-        
-        $rootScope.kdm = kdm;
-        
-        $rootScope.$watch('kdm.courage.levels', function(newVal, oldVal) {
-            if (newVal !== oldVal) 
-            {
-                // find the changed index
-                var index = -1;
-                for (var i = 0; i < newVal.length; i++) 
-                {
-                    if (oldVal[i].value !== newVal[i].value) {
-                        index = i;
-                        break;
-                    }
-                }
-                var value = newVal[index].value;
-                if (value) {
-                    for (var i = 0; i < index; i++) {
-                        $rootScope.kdm.courage.levels[i].value = true;
-                    }
-                } else {
-                    for (var i = newVal.length - 1; i > index; i--) {
-                        $rootScope.kdm.courage.levels[i].value = false;
-                    }
-                }
-            }
-        }, true);
-        
-        $rootScope.$watch('kdm.understanding.levels', function(newVal, oldVal) {
-            if (newVal !== oldVal) 
-            {
-                // find the changed index
-                var index = -1;
-                for (var i = 0; i < newVal.length; i++) 
-                {
-                    if (oldVal[i].value !== newVal[i].value) {
-                        index = i;
-                        break;
-                    }
-                }
-                var value = newVal[index].value;
-                if (value) {
-                    for (var i = 0; i < index; i++) {
-                        $rootScope.kdm.understanding.levels[i].value = true;
-                    }
-                } else {
-                    for (var i = newVal.length - 1; i > index; i--) {
-                        $rootScope.kdm.understanding.levels[i].value = false;
-                    }
-                }
-            }
-        }, true);
-
-        $rootScope.$watch('kdm.age', function(newVal, oldVal) {
-            if (newVal !== oldVal) 
-            {
-                // find the changed index
-                var index = -1;
-                for (var i = 0; i < newVal.length; i++) 
-                {
-                    if (oldVal[i].value !== newVal[i].value) {
-                        index = i;
-                        break;
-                    }
-                }
-                var value = newVal[index].value;
-                if (value) {
-                    for (var i = 0; i < index; i++) {
-                        $rootScope.kdm.age[i].value = true;
-                    }
-                } else {
-                    for (var i = newVal.length - 1; i > index; i--) {
-                        $rootScope.kdm.age[i].value = false;
-                    }
-                }
-            }
-        }, true);
-
-        $rootScope.$watch('kdm.weapon.levels', function(newVal, oldVal) {
-            if (newVal !== oldVal) 
-            {
-                // find the changed index
-                var index = -1;
-                for (var i = 0; i < newVal.length; i++) 
-                {
-                    if (oldVal[i].value !== newVal[i].value) {
-                        index = i;
-                        break;
-                    }
-                }
-                var value = newVal[index].value;
-                if (value) {
-                    for (var i = 0; i < index; i++) {
-                        $rootScope.kdm.weapon.levels[i].value = true;
-                    }
-                } else {
-                    for (var i = newVal.length - 1; i > index; i--) {
-                        $rootScope.kdm.weapon.levels[i].value = false;
-                    }
-                }
-            }
-        }, true);
+        return kdm;
     }
 })();

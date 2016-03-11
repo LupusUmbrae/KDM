@@ -8,32 +8,32 @@
     <link rel="stylesheet" href="static/kdm.css">
   </head>
   <body>
+    {% raw %}
     <div ng-view class="container">
+    
+      <ul class="nav nav-tabs">
+        <li ng-repeat="tab in tabs">
+          <a data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : "Unnamed"}}</a>
+        </li>
+      </ul>
+      
       <div class="row">
-        <div class="col-md-5">
-          <ng-include src="'static/templates/name.html'"></ng-include>
-          <ng-include src="'static/templates/survival.html'"></ng-include>
-          <ng-include src="'static/templates/attributes.html'"></ng-include>
-          <ng-include src="'static/templates/brain.html'"></ng-include>
-          <ng-include src="'static/templates/armour.html'"></ng-include>
+        <div class="col-md-12">
           <button id="savejson">To JSON</button>
           <button id="loadjson">From JSON</button>
-        </div>
-        <div class="col-md-5 col-md-offset-1">
-          <ng-include src="'static/templates/age.html'"></ng-include>
-          <ng-include src="'static/templates/weapons.html'"></ng-include>
-          <div class="row element bordered" style="padding: 0px;">
-            <div class="col-md-6" style="padding: 0px;">
-              <ng-include src="'static/templates/courage.html'"></ng-include>
-            </div>
-            <div class="col-md-6" style="border-left: 1px solid black; padding: 0px">
-              <ng-include src="'static/templates/understanding.html'"></ng-include>
-            </div>
-          </div>
-          <ng-include src="'static/templates/record.html'"></ng-include>
+          <button id="loadjson" ng-click="addChar()">Add char</button>
         </div>
       </div>
     </div>
+    
+    
+    <div class="tab-content">
+      <div ng-repeat="kdm in tabs" id="{{kdm.id}}" class="tab-pane container">
+        <div ng-include="kdm.template"></div>
+      </div>
+    </div>
+    {% endraw %}
+    
     
     <div id="load-dialog" title="From JSON">
       <p>Paste JSON below</p>
@@ -45,9 +45,10 @@
       <textarea rows="10" id="savejson" disabled="true"></textarea>
     </div>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     
     <script type="text/javascript" src='static/javascript/kdm.js'></script>
