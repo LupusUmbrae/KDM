@@ -1,6 +1,13 @@
 <div class="row element">
   <div class="col-xs-9">
-      Name <input type="text" placeholder="Name" class="noborder" ng-model="kdm.name.name">
+    <div class="row">
+      <div class="col-xs-2">
+        Name 
+      </div>
+      <div class="col-xs-10">
+        <input type="text" placeholder="Name" class="noborder left-align" ng-model="kdm.name.name" style="width: 100%;">
+      </div>
+    </div>
   </div>
   <div class="col-xs-3">
     <label class="radio-inline"><input type="radio" name="sex" value="m" ng-model="kdm.name.sex" class="radio-box"><span></span>M</label>

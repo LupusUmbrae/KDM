@@ -1,3 +1,8 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+}
+
 .bordered {
     border: 1px solid black;
 }
@@ -178,6 +183,7 @@ label input[type=radio]:checked + span
     border: 0;
     text-align: center;
     margin-top: 3px;
+    width: 40px;
 }
 
 .sheild input[type=text]:focus {
@@ -199,4 +205,13 @@ label input[type=radio]:checked + span
 
 input[type=text] {
     text-align: center;
+}
+
+div#about {
+    text-align: center;
+}
+
+input[type=text].left-align {
+    text-align: left;
+    width: 100%;
 }

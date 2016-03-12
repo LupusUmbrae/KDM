@@ -2,32 +2,44 @@
   <head>
     
     <base href="/" />
+    <basefont size="12">
        
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="static/kdm.css">
   </head>
   <body>
+
+    <a href="https://github.com/LupusUmbrae/KDM"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
     {% raw %}
     <div ng-view class="container">
     
       <ul class="nav nav-tabs">
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              Actions <span class="caret"></span>
+              <ul class="dropdown-menu">
+                <li><a id="savejson" href="javascript:void(0)">To JSON</a></li>
+                <li><a id="loadjson" href="javascript:void(0)">Load JSON</a></li>
+                <li><a id="addchar" href="javascript:void(0)" ng-click="addChar()">Add Char</a></li>
+                <li><a data-toggle="tab" href="#about">About</a></li>
+              </ul>
+            </a>
+        </li>
         <li ng-repeat="tab in tabs">
           <a data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : "Unnamed"}}</a>
         </li>
       </ul>
-      
-      <div class="row">
-        <div class="col-md-12">
-          <button id="savejson">To JSON</button>
-          <button id="loadjson">From JSON</button>
-          <button id="loadjson" ng-click="addChar()">Add char</button>
-        </div>
-      </div>
     </div>
     
     
     <div class="tab-content">
+      <div class="tab-pane jumbotron container active" id="about">
+        <h1>Kingdom Death Monster</h1>
+        <p>~Web Forms~</p>
+        <small>v0.0.1</small>
+      </div>
       <div ng-repeat="kdm in tabs" id="{{kdm.id}}" class="tab-pane container">
         <div ng-include="kdm.template"></div>
       </div>
@@ -50,7 +62,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    
+
     <script type="text/javascript" src='static/javascript/kdm.js'></script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'></script>
     <script>
@@ -70,6 +82,7 @@
             }
           }
         });
+
         $( "#loadjson" ).click(function() {
           $( "#load-dialog" ).dialog( "open" );
         });
@@ -98,6 +111,10 @@
                     $image.attr("src", "static/images/checkbox-unchecked.svg");
                 }
             })
+        });
+
+        $('.nav-tabs li a').click( function(e) {
+          history.pushState( null, null, $(this).attr('href') );
         });
       });
   </script>
