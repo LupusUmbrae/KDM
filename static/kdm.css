@@ -195,7 +195,7 @@ label input[type=radio]:checked + span
     text-align: center;
 }
 
-.attr-val {
+.align-centre {
     text-align: center;
 }
 
