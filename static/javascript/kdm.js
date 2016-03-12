@@ -34,17 +34,68 @@
         $rootScope.load = function(json) {
             load($rootScope, json);
         }
-
+        
         $rootScope.addChar = function(json) {
             addNewChar($rootScope);
+        }
+        
+        $rootScope.deletetab = function(tabid) {
+            deleteTab($rootScope, tabid);
         }
         
         $rootScope.tabs = [];
         
         addToTabs($rootScope, createEmptyCharSheet("tab-0"));
-    
+        
+        $(function() {
+            $("#load-dialog").dialog({
+                autoOpen: false,
+                resizable: true,
+                height: 400,
+                modal: true,
+                buttons: {
+                    "Load": function() {
+                        $(this).dialog("close");
+                        angular.element(document.body).scope().load($('textarea#loadjson').val());
+                    },
+                    Cancel: function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            
+            $("#loadjson").click(function() {
+                $("#load-dialog").dialog("open");
+            });
+            
+            $("#save-dialog").dialog({
+                autoOpen: false,
+                resizable: true,
+                height: 400,
+            });
+            $("#savejson").click(function() {
+                $('textarea#savejson').val(angular.element(document.body).scope().jsonify());
+                $("#save-dialog").dialog("open");
+            });
+            $("input:checkbox").each(function() {
+                $(this).hide();
+                
+                var $image = $("<img src='static/images/checkbox-unchecked.svg' />").insertAfter(this);
+                
+                $image.click(function() {
+                    var $checkbox = $(this).prev(".check");
+                    $checkbox.prop('checked', !$checkbox.prop('checked'));
+                    
+                    if ($checkbox.prop("checked")) {
+                        $image.attr("src", "static/images/checkbox-checked.svg");
+                    } else {
+                        $image.attr("src", "static/images/checkbox-unchecked.svg");
+                    }
+                })
+            });
+        });
     }
-
+    
     function addNewChar(scope) {
         var id = "tab-" + scope.tabs.length;
         addToTabs(scope, createEmptyCharSheet(id));
@@ -61,10 +112,14 @@
             scope.$watch('tabs[' + lastIndex + '].age', watchCheckboxArray, true);
             scope.$watch('tabs[' + lastIndex + '].weapon.levels', watchCheckboxArray, true);
         }
+        
+        $('.nav-tabs li a').click(function (e) {
+            e.preventDefault();
+        });
     }
     
     function watchCheckboxArray(newVal, oldVal) {
-        if (newVal !== oldVal) 
+        if (newVal !== undefined && oldVal !== undefined && newVal !== oldVal) 
         {
             // find the changed index
             var index = -1;
@@ -90,6 +145,20 @@
                     newVal[i].value = false;
                 }
             }
+        }
+    }
+    
+    function deleteTab($rootScope, tabid) {
+        var tabs = $rootScope.tabs;
+        var index = -1;
+        for (var i = 0; i < tabs.length; i++) {
+            if (tabs[i].id === tabid) {
+                index = i;
+                break;
+            }
+        }
+        if (index !== -1) {
+            tabs.splice(index, 1);
         }
     }
     

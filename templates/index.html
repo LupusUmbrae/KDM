@@ -2,7 +2,6 @@
   <head>
     
     <base href="/" />
-    <basefont size="12">
        
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -28,7 +27,7 @@
             </a>
         </li>
         <li ng-repeat="tab in tabs">
-          <a data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : "Unnamed"}}</a>
+          <a data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : "Unnamed"}} <span ng-click="deletetab(tab.id)" type="button" >×</span></a>
         </li>
       </ul>
     </div>
@@ -65,58 +64,5 @@
 
     <script type="text/javascript" src='static/javascript/kdm.js'></script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'></script>
-    <script>
-      $(function() {
-        $( "#load-dialog" ).dialog({
-          autoOpen: false,
-          resizable: true,
-          height:400,
-          modal: true,
-          buttons: {
-            "Load": function() {
-              $( this ).dialog( "close" );
-              angular.element(document.body).scope().load($('textarea#loadjson').val());
-            },
-            Cancel: function() {
-              $( this ).dialog( "close" );
-            }
-          }
-        });
-
-        $( "#loadjson" ).click(function() {
-          $( "#load-dialog" ).dialog( "open" );
-        });
-        
-        $( "#save-dialog" ).dialog({
-          autoOpen: false,
-          resizable: true,
-          height:400,
-        });
-        $( "#savejson" ).click(function() {
-          $('textarea#savejson').val(angular.element(document.body).scope().jsonify());
-          $( "#save-dialog" ).dialog( "open" );
-        });
-        $("input:checkbox").each(function() {
-            $(this).hide();
-
-            var $image = $("<img src='static/images/checkbox-unchecked.svg' />").insertAfter(this);    
-
-            $image.click(function() {
-                var $checkbox = $(this).prev(".check");
-                $checkbox.prop('checked', !$checkbox.prop('checked'));
-
-                if($checkbox.prop("checked")) {
-                    $image.attr("src", "static/images/checkbox-checked.svg");
-                } else {
-                    $image.attr("src", "static/images/checkbox-unchecked.svg");
-                }
-            })
-        });
-
-        $('.nav-tabs li a').click( function(e) {
-          history.pushState( null, null, $(this).attr('href') );
-        });
-      });
-  </script>
   </body>
 </html>
