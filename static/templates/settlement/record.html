@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-xs-12">
+        <big>{{record.name}}</big>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <small>{{record.note}}</small>
+    </div>
+</div>
+<div class="row">
+  <div class="col-xs-3" ng-repeat="col in record.entries track by $index">
+    <div class="row" ng-repeat="row in col track by $index">
+      <div class="col-xs-12">
+        <input type="text" class="underlined fullwidth left-align" ng-model="record.entries[$parent.$index][$index]">
+      </div>
+    </div>
+  </div>
+</div>
+<br />

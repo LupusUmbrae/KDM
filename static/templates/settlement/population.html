@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-xs-1 col-md-1">
+        <input type="text" size="3" placeholder="0"  ng-model="kdm.population.value">
+    </div>
+    <div class="col-xs-2 col-md-2">
+        <div class="row">
+            <div class="col-xs-12">
+                <big>Population</big>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <small>Update the population number as survivors are added and lost</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-4">
+        <div class="row">
+            <div class="col-xs-12">
+                <big>Lost Settlements</big>
+                <hr style="margin-bottom: 5px; margin-top: 5px;">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label ng-repeat="lostbox in kdm.population.lost">
+                  <input type="checkbox" ng-class="{level: lostbox.level}" ng-model="lostbox.value"><span></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-3">
+        <small>Name</small>
+    </div>
+    <div class="col-xs-1">
+        <small>Gender</small>
+    </div>
+    <div class="col-xs-8">
+        <small>Notes</small>
+    </div>
+</div>
+<div class="row" ng-repeat="person in kdm.population.people track by $index">
+    <div class="col-xs-3">
+        <input type="text" class="underlined fullwidth left-align" ng-model="person.name">
+    </div>
+    <div class="col-xs-1">
+        <input type="text" class="underlined fullwidth left-align" ng-model="person.gender">
+    </div>
+    <div class="col-xs-8">
+        <input type="text" class="underlined fullwidth left-align" ng-model="person.notes">
+    </div>
+</div>

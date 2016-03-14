@@ -39,13 +39,18 @@
             addNewChar($rootScope);
         }
         
+        $rootScope.addSettlement = function(json) {
+            addNewSettlement($rootScope);
+        }
+        
         $rootScope.deletetab = function(tabid) {
             deleteTab($rootScope, tabid);
         }
         
         $rootScope.tabs = [];
         
-        addToTabs($rootScope, createEmptyCharSheet("tab-0"));
+        addNewSettlement($rootScope);
+        addNewChar($rootScope);
         
         $(function() {
             $("#load-dialog").dialog({
@@ -101,6 +106,11 @@
         addToTabs(scope, createEmptyCharSheet(id));
     }
     
+    function addNewSettlement(scope) {
+        var id = "tab-" + scope.tabs.length;
+        addToTabs(scope, createEmptySettlement(id));
+    }
+    
     function addToTabs(scope, kdm) {
         var tabs = scope.tabs;
         tabs.push(kdm);
@@ -111,9 +121,12 @@
             scope.$watch('tabs[' + lastIndex + '].understanding.levels', watchCheckboxArray, true);
             scope.$watch('tabs[' + lastIndex + '].age', watchCheckboxArray, true);
             scope.$watch('tabs[' + lastIndex + '].weapon.levels', watchCheckboxArray, true);
+        } else if (kdm.type === "settlement") {
+            scope.$watch('tabs[' + lastIndex + '].population.lost', watchCheckboxArray, true);
+            scope.$watch('tabs[' + lastIndex + '].deathCount', watchCheckboxArray, true);
         }
         
-        $('.nav-tabs li a').click(function (e) {
+        $('.nav-tabs li a').click(function(e) {
             e.preventDefault();
         });
     }
@@ -346,6 +359,111 @@
         records.push(abilitiesImpairments);
         
         kdm.records = records;
+        return kdm;
+    }
+    
+    function createEmptySettlement(id) {
+        var kdm = {};
+        
+        kdm.id = id;
+        kdm.type = "settlement";
+        kdm.template = "static/templates/settlement.html"
+        
+        // NAME
+        var name = {};
+        kdm.name = name;
+        
+        // DEATH COUNT
+        var deathCount = [];
+        for (var i = 0; i < 40; i++) {
+            var deathbox = {};
+            if (i === 0) {
+                deathbox.level = true;
+            }
+            deathCount.push(deathbox);
+        }
+        kdm.deathCount = deathCount;
+        
+        // TIMELINE
+        var timeline = [];
+        // TODO: Define timeline
+        kdm.timeline = timeline;
+        
+        // MILESTONE STORY EVENTS
+        
+        // NEMISIS MONSTERS
+        
+        // INNOCATIONS
+        
+        // SETTLEMENT LOCATIONS
+        
+        // PRINCIPLES
+        
+        // QUARRIES
+        
+        // STORAGE
+        var records = [];
+        
+        var storage = {};
+        storage.name = "Storage";
+        storage.note = "Gear and Resources may be stored without liimit";
+        
+        var stored = [];
+        for (var colIndex = 0; colIndex < 4; colIndex++) {
+            var col = [];
+            for (var rowIndex = 0; rowIndex < 10; rowIndex++) {
+                col.push("");
+            }
+            stored.push(col);
+        }
+        storage.entries = stored;
+        
+        records.push(storage);
+        
+        // DEFEATED MONSTERS
+        var defeated = {};
+
+        var entries = []
+        defeated.name = "Defeated Monsters"
+        defeated.note = "A list of defeated monsters and their levels";
+        for (var colIndex = 0; colIndex < 4; colIndex++) {
+            var col = [];
+            for (var rowIndex = 0; rowIndex < 10; rowIndex++) {
+                col.push("");
+            }
+            entries.push(col);
+        }
+
+        defeated.entries = entries;
+        records.push(defeated);
+        
+        kdm.records = records;
+        
+        // POPULATION
+        var population = {}
+        
+        var lost = [];
+        for (var i = 0; i < 20; i++) {
+            var lostbox = {};
+            if ((i % 5) === 0) {
+                lostbox.level = true;
+            }
+            lost.push(lostbox);
+        }
+        population.lost = lost;
+        
+        var people = [];
+        for (var i = 0; i < 20; i++) {
+            var person = {};
+            person.name = "";
+            person.gender = "";
+            person.notes = "";
+            people.push(person);
+        }
+        population.people = people;
+        
+        kdm.population = population;
+        
         return kdm;
     }
 })();

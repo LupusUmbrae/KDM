@@ -21,13 +21,14 @@
               <ul class="dropdown-menu">
                 <li><a id="savejson" href="javascript:void(0)">To JSON</a></li>
                 <li><a id="loadjson" href="javascript:void(0)">Load JSON</a></li>
-                <li><a id="addchar" href="javascript:void(0)" ng-click="addChar()">Add Char</a></li>
+                <li><a id="addchar" href="javascript:void(0)" ng-click="addChar()">Add Character</a></li>
+                <li><a id="addchar" href="javascript:void(0)" ng-click="addSettlement()">Add Settlement</a></li>
                 <li><a data-toggle="tab" href="#about">About</a></li>
               </ul>
             </a>
         </li>
         <li ng-repeat="tab in tabs">
-          <a data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : "Unnamed"}} <span ng-click="deletetab(tab.id)" type="button" >×</span></a>
+          <a data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : tab.type === "char" ? "Unnamed Char" : "Unamed Settlement"}} <span ng-click="deletetab(tab.id)" type="button" >×</span></a>
         </li>
       </ul>
     </div>
