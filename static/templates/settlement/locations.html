@@ -1,0 +1,39 @@
+<div class="row element">
+    <div class="col-xs-12">
+        <div class="row">  
+            <div class="col-xs-12">
+                <big>Settlement Locations</big><br />
+                <small>Locations in your settlement.</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" ng-repeat="location in kdm.locations | limitTo:9:0 track by $index">
+                    <div class="col-xs-2">
+                        <label>
+                          <input type="checkbox" ng-model="location.owned" class="mini">
+                          <span></span>
+                        </label>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" ng-readonly="location.disabled" class="underlined fullwidth left-align" ng-model="location.name">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row" ng-repeat="location in kdm.locations | limitTo:9:9 track by $index">
+                    <div class="col-xs-2">
+                        <label>
+                          <input type="checkbox" ng-model="location.owned" class="mini">
+                          <span></span>
+                        </label>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" ng-readonly="location.disabled" class="underlined fullwidth left-align" ng-model="location.name">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

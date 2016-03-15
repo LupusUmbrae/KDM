@@ -393,12 +393,46 @@
         
         // NEMISIS MONSTERS
         
-        // INNOCATIONS
+        // INNOVATIONS 22
+        var innovations = [];
+        for(var i =0; i < 22; i++) {
+            innovations.push("");
+        }
+        innovations[0] = "Language"
+        kdm.innovations = innovations;
         
-        // SETTLEMENT LOCATIONS
+        // SETTLEMENT LOCATIONS - 18
+        var locations = [];
+        locations.push({name : "Lantern Hoard", owned : true, disabled: true});
+        locations.push({name : "Bone Smith", disabled: true});
+        locations.push({name : "Skinnery", disabled: true});
+        locations.push({name : "Organ Grinder", disabled: true});
+        locations.push({name : "Catarium", disabled: true});
+        locations.push({name : "Weapon Crafter", disabled: true});
+        locations.push({name : "Leather Worker", disabled: true});
+        locations.push({name : "Stone Circle", disabled: true});
+        locations.push({name : "Barber Surgeon", disabled: true});
+        locations.push({name : "Plumery", disabled: true});
+        locations.push({name : "Blacksmith", disabled: true});
+        locations.push({name : "Mask Maker", disabled: true});
+        for(var i = 0; i < 8; i++) {
+            locations.push({ name : ""})
+        }
+        kdm.locations = locations;
         
         // PRINCIPLES
-        
+        var principles = [];
+
+        principles.push({name : "New Life", left : "Protect the Young", right: "Survival of the Fittest", disabled:true});
+        principles.push({name : "Death", left : "Cannibalize", right: "Graves", disabled:true});
+        principles.push({name : "Society", left : "Collective Toil", right: "Accept Darkness", disabled:true});
+        principles.push({name : "Conviction", left : "Barbaric", right: "Romantic", disabled:true});
+
+        principles.push({name : "", left : "", right: ""});
+        principles.push({name : "", left : "", right: ""});
+
+        kdm.principles = principles;
+
         // QUARRIES
         
         // STORAGE

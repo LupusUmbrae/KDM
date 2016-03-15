@@ -1,0 +1,30 @@
+<div class="row element">
+    <div class="col-xs-12">
+        <div class="row">  
+            <div class="col-xs-12">
+                <big>Principles</big><br />
+                <small>The settlement's established principles.</small>
+            </div>
+        </div>
+        <div class="row" ng-repeat="principle in kdm.principles track by $index">
+            <div class="col-xs-3">
+                <input type="text" ng-readonly="principle.disabled" class="underlined fullwidth left-align" ng-model="principle.name">
+            </div>
+            <div class="col-xs-1">
+                <label class="radio-inline"><input type="radio" name="{{principle.name}}" value="{{principle.left}}" ng-model="principle.choice" class="radio-box"><span></span></label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" ng-readonly="principle.disabled" class="underlined left-align" ng-model="principle.left">
+            </div>
+            <div class="col-xs-1">
+                <small>or</small>
+            </div>
+            <div class="col-xs-1">
+                <label class="radio-inline"><input type="radio" name="{{principle.name}}" value="{{principle.right}}" ng-model="principle.choice" class="radio-box"><span></span></label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" ng-readonly="principle.disabled" class="underlined left-align" ng-model="principle.right">
+            </div>
+        </div>
+    </div>
+</div>

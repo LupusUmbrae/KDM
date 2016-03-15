@@ -1,0 +1,26 @@
+<div class="row element">
+    <div class="col-xs-12">
+        <div class="row">  
+            <div class="col-xs-12">
+                <big>Innovations</big><br />
+                <small>The settlement's innovations (including weapon masteries).</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" ng-repeat="innovation in kdm.innovations | limitTo:11:0 track by $index">
+                    <div class="col-xs-12">
+                        <input type="text" class="underlined fullwidth left-align" ng-model="kdm.innovations[$index]">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row" ng-repeat="innovation in kdm.innovations | limitTo:11:11 track by $index">
+                    <div class="col-xs-12">
+                        <input type="text" class="underlined fullwidth left-align" ng-model="kdm.innovations[$index+11]">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
