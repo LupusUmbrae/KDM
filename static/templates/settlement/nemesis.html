@@ -1,0 +1,50 @@
+<div class="row element bordered">
+    <div class="col-xs-12">
+        <div class="row">  
+            <div class="col-xs-12">
+                <img src="static/images/nemesis.svg" width="15" height="15"><big>Nemesis Monsters</big><br />
+                <small>The available nemesis encounter monsters.</small>
+            </div>
+        </div>
+        <div class="row" ng-repeat="nemesis in kdm.nemesis track by $index">
+            <div class="col-xs-1 compress">
+                <label ng-show="nemesis.name">
+                  <input type="checkbox" ng-model="nemesis.value" class="mini">
+                  <span></span>
+                </label>
+            </div>
+            <div class="col-xs-5">
+                <small><input type="text" class="underlined fullwidth left-align" ng-model="nemesis.name" ng-readonly="nemesis.disabled"></small>
+            </div>
+            <div class="col-xs-1 compress">
+                <label ng-show="nemesis.name">
+                  <input type="checkbox" ng-model="nemesis.lvl1" class="mini">
+                  <span></span>
+                </label>
+            </div>
+            <div class="col-xs-1">
+                <small ng-show="nemesis.name">Lvl1</small>
+            </div>
+            
+            <div class="col-xs-1 compress">
+                <label ng-show="nemesis.name">
+                  <input type="checkbox" ng-model="nemesis.lvl2" class="mini">
+                  <span></span>
+                </label>
+            </div>
+            <div class="col-xs-1">
+                <small ng-show="nemesis.name">Lvl2</small>
+            </div>
+
+            <div class="col-xs-1 compress">
+                <label ng-show="nemesis.name">
+                  <input type="checkbox" ng-model="nemesis.lvl3" class="mini">
+                  <span></span>
+                </label>
+            </div>
+            <div class="col-xs-1">
+                <small ng-show="nemesis.name">Lvl3</small>
+            </div>
+        </div>
+    </div>
+</div>

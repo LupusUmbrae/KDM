@@ -8,9 +8,9 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="row" ng-repeat="location in kdm.locations | limitTo:9:0 track by $index">
+                <div class="row" ng-repeat="location in kdm.locations | limitTo:(kdm.locations.length/2):0 track by $index">
                     <div class="col-xs-2">
-                        <label>
+                        <label ng-show="location.name">
                           <input type="checkbox" ng-model="location.owned" class="mini">
                           <span></span>
                         </label>
@@ -21,9 +21,9 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="row" ng-repeat="location in kdm.locations | limitTo:9:9 track by $index">
+                <div class="row" ng-repeat="location in kdm.locations | limitTo:(kdm.locations.length/2):(kdm.locations.length/2) track by $index">
                     <div class="col-xs-2">
-                        <label>
+                        <label ng-show="location.name">
                           <input type="checkbox" ng-model="location.owned" class="mini">
                           <span></span>
                         </label>

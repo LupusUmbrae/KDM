@@ -215,3 +215,8 @@ input[type=text].left-align {
     text-align: left;
     width: 100%;
 }
+
+.compress {
+    padding-left: 5px;
+    padding-right: 5px;
+}

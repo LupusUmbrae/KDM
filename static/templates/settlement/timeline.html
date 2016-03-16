@@ -1,0 +1,43 @@
+<div class="row element">
+    <div class="col-xs-12">
+        <div class="row">  
+            <div class="col-xs-12">
+                <big>Timeline</big>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" ng-repeat="year in kdm.timeline | limitTo:(kdm.timeline.length/2):0 track by $index">
+                    <div class="col-xs-1">
+                        <label>
+                          <input type="checkbox" ng-model="year.done" class="mini">
+                          <span></span>
+                        </label>
+                    </div> 
+                    <div class="col-xs-1">
+                       <small>{{year.year}}</small>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" class="underlined fullwidth left-align">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row" ng-repeat="year in kdm.timeline | limitTo:(kdm.timeline.length/2):(kdm.timeline.length/2) track by $index">
+                    <div class="col-xs-1">
+                        <label>
+                          <input type="checkbox" ng-model="year.done" class="mini">
+                          <span></span>
+                        </label>
+                    </div> 
+                    <div class="col-xs-1">
+                       <small>{{year.year}}</small>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" class="underlined fullwidth left-align">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

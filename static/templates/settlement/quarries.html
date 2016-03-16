@@ -1,0 +1,39 @@
+<div class="row element bordered">
+    <div class="col-xs-12">
+        <div class="row">  
+            <div class="col-xs-12">
+                <big>Quarries</big><br />
+                <small>The monsters your settlement can select to hunt.</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" ng-repeat="quarry in kdm.quarries | limitTo:4:0 track by $index">
+                    <div class="col-xs-2">
+                        <label ng-show="quarry.name">
+                          <input type="checkbox" ng-model="quarry.huntable" class="mini">
+                          <span></span>
+                        </label>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" ng-readonly="quarry.disabled" class="underlined fullwidth left-align" ng-model="quarry.name">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row" ng-repeat="quarry in kdm.quarries | limitTo:4:4 track by $index">
+                    <div class="col-xs-2">
+                        <label ng-show="quarry.name">
+                          <input type="checkbox" ng-model="quarry.huntable" class="mini">
+                          <span></span>
+                        </label>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" ng-readonly="quarry.disabled" class="underlined fullwidth left-align" ng-model="quarry.name">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
