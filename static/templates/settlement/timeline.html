@@ -3,38 +3,67 @@
         <div class="row">  
             <div class="col-xs-12">
                 <big>Timeline</big>
+                <button id="addEvent" type="button" onclick="$('#timeline-dialog').dialog('open')">+</button>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="row" ng-repeat="year in kdm.timeline | limitTo:(kdm.timeline.length/2):0 track by $index">
+                <div class="row" ng-repeat="year in kdm.timeline | limitTo:(kdm.timeline.length/2):0 track by $index" style="border-bottom: 1px solid black">
                     <div class="col-xs-1">
                         <label>
-                          <input type="checkbox" ng-model="year.done" class="mini">
+                          <input type="checkbox" ng-model="year.value" class="mini">
                           <span></span>
                         </label>
                     </div> 
                     <div class="col-xs-1">
                        <small>{{year.year}}</small>
                     </div>
-                    <div class="col-xs-10">
-                        <input type="text" class="underlined fullwidth left-align">
+                    <div class="col-xs-9">
+                        <div class="row" ng-repeat="event in year.events">
+                            <div class="col-xs-1">
+                                <img src="static/images/book-closed.svg" width="15" height="15" ng-show="event.type == 'story' && !year.value">
+                                <img src="static/images/book-open.svg" width="15" height="15" ng-show="event.type == 'story' && year.value">
+                                <img src="static/images/nemesis.svg" width="15" height="15" ng-show="event.type == 'nemesis'">
+                            </div>
+                            <div class="col-xs-10">
+                                <small><input type="text" class="noborder fullwidth left-align" readonly ng-model="event.eventName"></small>
+                            </div>
+                        </div>
+                        <div  ng-hide="year.events.length" class="row">
+                            <div class="col-xs-12">
+                                <small><input type="text" class="noborder left-align" readonly></small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="row" ng-repeat="year in kdm.timeline | limitTo:(kdm.timeline.length/2):(kdm.timeline.length/2) track by $index">
+                <div class="row" ng-repeat="year in kdm.timeline | limitTo:(kdm.timeline.length/2):(kdm.timeline.length/2) track by $index" style="border-bottom: 1px solid black">
                     <div class="col-xs-1">
                         <label>
-                          <input type="checkbox" ng-model="year.done" class="mini">
+                          <input type="checkbox" ng-model="year.value" class="mini">
                           <span></span>
                         </label>
                     </div> 
                     <div class="col-xs-1">
                        <small>{{year.year}}</small>
                     </div>
-                    <div class="col-xs-10">
-                        <input type="text" class="underlined fullwidth left-align">
+                    <div class="col-xs-9">
+                        <div class="row" ng-repeat="event in year.events">
+                            <div class="col-xs-1">
+                                <img src="static/images/book-closed.svg" width="15" height="15" ng-show="event.type == 'story' && !year.value">
+                                <img src="static/images/book-open.svg" width="15" height="15" ng-show="event.type == 'story' && year.value">
+                                <img src="static/images/nemesis.svg" width="15" height="15" ng-show="event.type == 'nemesis'">
+                            </div>
+                            <div class="col-xs-10">
+                                <small><input type="text" class="noborder fullwidth left-align" readonly ng-model="event.eventName"></small>
+                            </div>
+                        </div>
+                        <div  ng-hide="year.events.length" class="row">
+                            <div class="col-xs-12">
+                                <small><input type="text" class="noborder left-align" readonly></small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

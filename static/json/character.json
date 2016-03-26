@@ -1,0 +1,243 @@
+{  
+  "type":"char",
+  "template":"static/templates/char.html",
+  "survival":{  
+    "encourage":false,
+    "surge":false,
+    "dash":false,
+    "cannotspend":false
+  },
+  "attrs":[  
+    {  
+      "name":"Movement",
+      "value":5
+    },
+    {  
+      "name":"Accuracy"
+    },
+    {  
+      "name":"Strength"
+    },
+    {  
+      "name":"Evasion"
+    },
+    {  
+      "name":"Luck"
+    },
+    {  
+      "name":"Speed"
+    }
+  ],
+  "brain":{  
+    "wound":false
+  },
+  "armour":[  
+    {  
+      "name":"Head",
+      "heavy":false
+    },
+    {  
+      "name":"Arms",
+      "light":false,
+      "heavy":false
+    },
+    {  
+      "name":"Body",
+      "light":false,
+      "heavy":false
+    },
+    {  
+      "name":"Waist",
+      "light":false,
+      "heavy":false
+    },
+    {  
+      "name":"Legs",
+      "light":false,
+      "heavy":false
+    }
+  ],
+  "age":[  
+    {  
+
+    },
+    {  
+      "level":true
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+      "level":true
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+      "level":true
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+      "level":true
+    },
+    {  
+      "retire":true
+    }
+  ],
+  "weapon":{  
+    "type":"",
+    "levels":[  
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      }
+    ]
+  },
+  "courage":{  
+    "bold":"",
+    "levels":[  
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      }
+    ]
+  },
+  "understanding":{  
+    "insight":"",
+    "levels":[  
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      }
+    ]
+  },
+  "records":[  
+    {  
+      "name":"Fighting Arts",
+      "limit":"Maximum 3",
+      "checkbox":{  
+        "text":"Cannot use fighting arts",
+        "value":false
+      },
+      "lines":[  
+        "",
+        "",
+        ""
+      ]
+    },
+    {  
+      "name":"Disorders",
+      "limit":"Maximum 3",
+      "lines":[  
+        "",
+        "",
+        ""
+      ]
+    },
+    {  
+      "name":"Abilities & Impairments",
+      "checkbox":{  
+        "text":"Skip Next Hunt",
+        "value":false
+      },
+      "lines":[  
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  ]
+}

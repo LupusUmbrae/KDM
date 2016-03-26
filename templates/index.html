@@ -45,9 +45,6 @@
         <div ng-include="kdm.template"></div>
       </div>
     </div>
-    <div ng-hide>
-    {% endraw %}
-    </div>
     
     <div id="load-dialog" title="From JSON" ng-cloak>
       <p>Paste JSON below</p>
@@ -57,6 +54,18 @@
     <div id="save-dialog" title="From JSON" ng-cloak>
       <p>Copy JSON below</p>
       <textarea rows="10" id="savejson" disabled="true"></textarea>
+    </div>
+
+    <div id="timeline-dialog" title="Add Event to Timeline">
+      <input id="year" type="text" placeholder="Year" class="noborder left-align" maxlength="2" size="2">
+      <select>
+        <option ng-repeat="option in timeline.options" value="{{option}}">{{option}}</option>
+      </select>
+      <input id="event" type="text" placeholder="Event" class="underlined left-align" style="width: 100%;">
+    </div>
+    
+    <div ng-hide>
+    {% endraw %}
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>

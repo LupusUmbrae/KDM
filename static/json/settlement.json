@@ -1,0 +1,915 @@
+{  
+  "type":"settlement",
+  "template":"static/templates/settlement.html",
+  "name":{  
+
+  },
+  "deathCount":[  
+    {  
+      "level":true
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    }
+  ],
+  "timeline":[  
+    {  
+      "year":1,
+      "events":[  
+        {  
+          "type":"story",
+          "eventName":"Returning Survivors"
+        }
+      ]
+    },
+    {  
+      "year":2,
+      "events":[  
+        {  
+          "type":"story",
+          "eventName":"Endless Screams"
+        }
+      ]
+    },
+    {  
+      "year":3,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":4,
+      "events":[  
+        {  
+          "type":"nemesis",
+          "eventName":"Nemisis Encounter - Butcher"
+        }
+      ]
+    },
+    {  
+      "year":5,
+      "events":[  
+        {  
+          "type":"story",
+          "eventName":"Hands of Heat"
+        }
+      ]
+    },
+    {  
+      "year":6,
+      "events":[  
+        {  
+          "type":"story",
+          "eventName":"Armoured Strangers"
+        }
+      ]
+    },
+    {  
+      "year":7,
+      "events":[  
+        {  
+          "type":"story",
+          "eventName":"Phoenix Feather"
+        }
+      ]
+    },
+    {  
+      "year":8,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":9,
+      "events":[  
+        {  
+          "type":"nemesis",
+          "eventName":"Nemisis Encounter - King's Man"
+        }
+      ]
+    },
+    {  
+      "year":10,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":11,
+      "events":[  
+        {  
+          "type":"story",
+          "eventName":"Regal Visit"
+        }
+      ]
+    },
+    {  
+      "year":12,
+      "events":[  
+        {  
+          "type":"story",
+          "eventName":"Principle: Conviction"
+        }
+      ]
+    },
+    {  
+      "year":13,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":14,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":15,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":16,
+      "events":[  
+        {  
+          "type":"nemesis",
+          "eventName":"Nemisis Encounter - "
+        }
+      ]
+    },
+    {  
+      "year":17,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":18,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":19,
+      "events":[  
+        {  
+          "type":"nemesis",
+          "eventName":"Nemisis Encounter - "
+        }
+      ]
+    },
+    {  
+      "year":20,
+      "events":[  
+        {  
+          "type":"story",
+          "eventName":"Watched"
+        }
+      ]
+    },
+    {  
+      "year":21,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":22,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":23,
+      "events":[  
+        {  
+          "type":"nemesis",
+          "eventName":"Nemisis Encounter - Level 3"
+        }
+      ]
+    },
+    {  
+      "year":24,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":25,
+      "events":[  
+        {  
+          "type":"nemesis",
+          "eventName":"Nemisis Encounter - Watcher"
+        }
+      ]
+    },
+    {  
+      "year":26,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":27,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":28,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":29,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":30,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":31,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":32,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":33,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":34,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":35,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":36,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":37,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":38,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":39,
+      "events":[  
+
+      ]
+    },
+    {  
+      "year":40,
+      "events":[  
+
+      ]
+    }
+  ],
+  "milestones":[  
+    {  
+      "name":"First child is born",
+      "event":"Principle: New Life",
+      "disabled":true
+    },
+    {  
+      "name":"First time death count is updated",
+      "event":"Principle: Death",
+      "disabled":true
+    },
+    {  
+      "name":"Population reaches 15",
+      "event":"Principle: Society",
+      "disabled":true
+    },
+    {  
+      "name":"Settlement has 5 innovations",
+      "event":"Hooded Knight",
+      "disabled":true
+    },
+    {  
+      "name":"Population reaches 0",
+      "event":"Game Over",
+      "disabled":true
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    }
+  ],
+  "nemesis":[  
+    {  
+      "name":"Butcher",
+      "disabled":true
+    },
+    {  
+      "name":"King's Man",
+      "disabled":true
+    },
+    {  
+      "name":"The Hand",
+      "disabled":true
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    }
+  ],
+  "innovations":[  
+    "Language",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "locations":[  
+    {  
+      "name":"Lantern Hoard",
+      "owned":true,
+      "disabled":true
+    },
+    {  
+      "name":"Bone Smith",
+      "disabled":true
+    },
+    {  
+      "name":"Skinnery",
+      "disabled":true
+    },
+    {  
+      "name":"Organ Grinder",
+      "disabled":true
+    },
+    {  
+      "name":"Catarium",
+      "disabled":true
+    },
+    {  
+      "name":"Weapon Crafter",
+      "disabled":true
+    },
+    {  
+      "name":"Leather Worker",
+      "disabled":true
+    },
+    {  
+      "name":"Stone Circle",
+      "disabled":true
+    },
+    {  
+      "name":"Barber Surgeon",
+      "disabled":true
+    },
+    {  
+      "name":"Plumery",
+      "disabled":true
+    },
+    {  
+      "name":"Blacksmith",
+      "disabled":true
+    },
+    {  
+      "name":"Mask Maker",
+      "disabled":true
+    },
+    {  
+      "name":""
+    },
+    {  
+      "name":""
+    },
+    {  
+      "name":""
+    },
+    {  
+      "name":""
+    },
+    {  
+      "name":""
+    },
+    {  
+      "name":""
+    },
+    {  
+      "name":""
+    },
+    {  
+      "name":""
+    }
+  ],
+  "principles":[  
+    {  
+      "name":"New Life",
+      "left":"Protect the Young",
+      "right":"Survival of the Fittest",
+      "disabled":true
+    },
+    {  
+      "name":"Death",
+      "left":"Cannibalize",
+      "right":"Graves",
+      "disabled":true
+    },
+    {  
+      "name":"Society",
+      "left":"Collective Toil",
+      "right":"Accept Darkness",
+      "disabled":true
+    },
+    {  
+      "name":"Conviction",
+      "left":"Barbaric",
+      "right":"Romantic",
+      "disabled":true
+    },
+    {  
+      "name":"",
+      "left":"",
+      "right":""
+    },
+    {  
+      "name":"",
+      "left":"",
+      "right":""
+    }
+  ],
+  "quarries":[  
+    {  
+      "name":"White Lion",
+      "disabled":true
+    },
+    {  
+      "name":"Screaming Antelope",
+      "disabled":true
+    },
+    {  
+      "name":"Phoenix",
+      "disabled":true
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    },
+    {  
+
+    }
+  ],
+  "records":[  
+    {  
+      "name":"Storage",
+      "note":"Gear and Resources may be stored without liimit",
+      "entries":[  
+        [  
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [  
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [  
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [  
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {  
+      "name":"Defeated Monsters",
+      "note":"A list of defeated monsters and their levels",
+      "entries":[  
+        [  
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [  
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [  
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [  
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "population":{  
+    "lost":[  
+      {  
+        "level":true
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+        "level":true
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      },
+      {  
+
+      }
+    ],
+    "people":[  
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      },
+      {  
+        "name":"",
+        "gender":"",
+        "notes":""
+      }
+    ]
+  }
+}
