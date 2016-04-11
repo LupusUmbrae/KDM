@@ -16,7 +16,6 @@
     run.$inject = ['$rootScope', '$parse'];
     
     function jsonify(scope) {
-        console.log(scope.tabs);
         return JSON.stringify(scope.tabs);
     }
     
@@ -49,8 +48,13 @@
         
         $rootScope.tabs = [];
         
-        addNewSettlement($rootScope);
-        addNewChar($rootScope);
+        var local = localStorage.getItem('kdm');
+        if(local ==null ) {
+            addNewSettlement($rootScope);
+            addNewChar($rootScope);
+        } else {
+            load($rootScope, local);
+        }
         
         $rootScope.timeline = {};
         $rootScope.timeline.options = [];
@@ -130,6 +134,13 @@
                 }
             });
         });
+        
+        $rootScope.$watch('tabs', function(newVal, oldVal) {
+            if (newVal !== undefined && oldVal !== undefined && newVal !== oldVal) 
+            {
+                localStorage.setItem('kdm', jsonify($rootScope));
+            }
+        }, true);
     }
     
     function addNewChar(scope) {
@@ -224,7 +235,7 @@
     
     function createEmptySettlement(id) {
         var kdm = loadFromFile("static/json/settlement.json");
-        kdm.id = id; 
+        kdm.id = id;
         return kdm;
     }
     
