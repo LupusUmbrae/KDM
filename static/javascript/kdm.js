@@ -49,7 +49,7 @@
         $rootScope.tabs = [];
         
         var local = localStorage.getItem('kdm');
-        if(local ==null ) {
+        if (local == null ) {
             addNewSettlement($rootScope);
             addNewChar($rootScope);
         } else {
@@ -86,6 +86,7 @@
                 autoOpen: false,
                 resizable: true,
                 height: 400,
+                modal: true,
             });
             
             $("#savejson").click(function() {
@@ -133,7 +134,34 @@
                     }
                 }
             });
+            
+            $(function() {
+                $("#clear-dialog").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    height: 140,
+                    modal: true,
+                    buttons: {
+                        "Clear": function() {
+                            localStorage.clear();
+                            $(this).dialog("close");
+                            $rootScope.tabs = [];
+                            addNewSettlement($rootScope);
+                            addNewChar($rootScope);
+                            $rootScope.$apply();
+                        },
+                        Cancel: function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+            
+            $('#clearAll').click(function() {
+                $("#clear-dialog").dialog("open");
+            });
         });
+        
         
         $rootScope.$watch('tabs', function(newVal, oldVal) {
             if (newVal !== undefined && oldVal !== undefined && newVal !== oldVal) 
