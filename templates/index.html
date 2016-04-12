@@ -38,7 +38,7 @@
               </ul>
             </a>
         </li>
-        <li ng-repeat="tab in tabs">
+        <li ng-repeat="tab in tabs track by $index">
           <a data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : tab.type === "char" ? "Unnamed Char" : "Unamed Settlement"}} <span ng-click="deletetab(tab.id)" type="button"> x </span></a>
         </li>
       </ul>
@@ -50,7 +50,7 @@
         <p>~Web Forms~</p>
         <small>v0.0.1</small>
       </div>
-      <div ng-repeat="kdm in tabs" id="{{kdm.id}}" class="tab-pane container">
+      <div ng-repeat="kdm in tabs track by $index" id="{{kdm.id}}" class="tab-pane container">
         <div ng-include="kdm.template"></div>
       </div>
     </div>
