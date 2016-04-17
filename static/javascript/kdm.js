@@ -22,6 +22,11 @@
     function load(scope, json) {
         var parsed = JSON.parse(json);
         scope.tabs = parsed;
+        
+        parsed.forEach(function(kdm, index) {
+            watchTab(scope, kdm, index);
+        })
+
         scope.$apply();
     }
     
@@ -160,6 +165,11 @@
             $('#clearAll').click(function() {
                 $("#clear-dialog").dialog("open");
             });
+            
+            $('.nav-tabs a').click(function(e) {
+                e.preventDefault()
+                $(this).tab('show')
+            });
         });
         
         
@@ -194,20 +204,20 @@
         tabs.push(kdm);
         var lastIndex = tabs.length - 1;
         
+        watchTab(scope, kdm, lastIndex);
+    }
+
+    function watchTab(scope, kdm, tabIndex) {
         if (kdm.type === "char") {
-            scope.$watch('tabs[' + lastIndex + '].courage.levels', watchCheckboxArray, true);
-            scope.$watch('tabs[' + lastIndex + '].understanding.levels', watchCheckboxArray, true);
-            scope.$watch('tabs[' + lastIndex + '].age', watchCheckboxArray, true);
-            scope.$watch('tabs[' + lastIndex + '].weapon.levels', watchCheckboxArray, true);
+            scope.$watch('tabs[' + tabIndex + '].courage.levels', watchCheckboxArray, true);
+            scope.$watch('tabs[' + tabIndex + '].understanding.levels', watchCheckboxArray, true);
+            scope.$watch('tabs[' + tabIndex + '].age', watchCheckboxArray, true);
+            scope.$watch('tabs[' + tabIndex + '].weapon.levels', watchCheckboxArray, true);
         } else if (kdm.type === "settlement") {
-            scope.$watch('tabs[' + lastIndex + '].population.lost', watchCheckboxArray, true);
-            scope.$watch('tabs[' + lastIndex + '].deathCount', watchCheckboxArray, true);
-            scope.$watch('tabs[' + lastIndex + '].timeline', watchCheckboxArray, true);
+            scope.$watch('tabs[' + tabIndex + '].population.lost', watchCheckboxArray, true);
+            scope.$watch('tabs[' + tabIndex + '].deathCount', watchCheckboxArray, true);
+            scope.$watch('tabs[' + tabIndex + '].timeline', watchCheckboxArray, true);
         }
-        
-        $('.nav-tabs li a').click(function(e) {
-            e.preventDefault();
-        });
     }
     
     function watchCheckboxArray(newVal, oldVal) {
