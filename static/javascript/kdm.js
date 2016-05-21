@@ -8,6 +8,9 @@
     
     angular
     .module('kdm.config', []);
+
+    angular
+    .module('kdm.directives', []);
     
     angular
     .module('kdm')

@@ -39,7 +39,7 @@
             </a>
         </li>
         <li ng-repeat="tab in tabs track by $index">
-          <a data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : tab.type === "char" ? "Unnamed Char" : "Unamed Settlement"}} <span ng-click="deletetab(tab.id)" type="button"> x </span></a>
+          <a show-tab="" data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : tab.type === "char" ? "Unnamed Char" : "Unamed Settlement"}} <span ng-click="deletetab(tab.id)" type="button"> x </span></a>
         </li>
       </ul>
     </div>
@@ -88,6 +88,7 @@
     
     <script type="text/javascript" src='static/javascript/kdm.js'></script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'></script>
+    <script type="text/javascript" src='static/javascript/tab.directive.js'></script>
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </body>
