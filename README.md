@@ -1,10 +1,10 @@
-# Kingdom Death Monster - Web Forms
-An attempt to create a small, simple(ish) web form for the [KDM](http://kingdomdeath.com/) Character sheet and Lantern Hoard sheet. 
+# Kingdom Death Monster - [Web Forms](http://kdm-webforms.com/)
+An attempt to create a  web form for the [KDM](http://kingdomdeath.com/) Character sheet and Lantern Hoard sheet. 
 
 Currently aiming to make the forms look like the sheets from KDM and allow saving/loading via JSON output
 
 ## How to use
-Its a web form, 'should' be easy to use
+It's fully hosted and ready to use at [kdm-webforms.com](http://kdm-webforms.com/), the site should be fairly intuative to use
 
 ## How to run
 You simply need to host the contents of this package with a webserver, for development i use 
