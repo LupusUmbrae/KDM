@@ -70,6 +70,12 @@
         $rootScope.timeline.options.push("Nemesis");
         
         $(function() {
+            $('.dropdown-submenu').click(
+                function() {
+                    $('.dropdown-submenu > .dropdown-menu').css('display','block'); 
+                    return false;
+            });
+
             $("#load-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
