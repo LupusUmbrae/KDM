@@ -71,9 +71,15 @@
         
         $(function() {
             $('.dropdown-submenu').click(
-                function() {
-                    $('.dropdown-submenu > .dropdown-menu').css('display','block'); 
-                    return false;
+                function(event) {
+                    // stop bootstrap.js to hide the parents
+                    event.stopPropagation();
+                    // hide the open children
+                    $( this ).find(".dropdown-submenu").removeClass('open');
+                    // add 'open' class to all parents with class 'dropdown-submenu'
+                    $( this ).parents(".dropdown-submenu").addClass('open');
+                    // this is also open (or was)
+                    $( this ).toggleClass('open');
             });
 
             $("#load-dialog").dialog({
