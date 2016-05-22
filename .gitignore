@@ -1,1 +1,7 @@
 /kdmvenv
+/config.py
+*.pyc
+/.idea
+/.crossbar/node.pid
+/.crossbar/key.priv
+/.crossbar/key.pub

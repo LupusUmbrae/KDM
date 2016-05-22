@@ -1,8 +1,8 @@
 <html ng-app="kdm">
   <head>
-    
+
     <base href="/" />
-       
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -15,7 +15,7 @@
     {% raw %}
     </div>
     <div ng-view class="container" ng-cloak>
-    
+
       <ul class="nav nav-tabs">
         <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -43,7 +43,7 @@
         </li>
       </ul>
     </div>
-    
+
     <div class="tab-content" ng-cloak>
       <div class="tab-pane jumbotron container active" id="about">
         <h1>Kingdom Death Monster</h1>
@@ -54,12 +54,12 @@
         <div ng-include="kdm.template"></div>
       </div>
     </div>
-    
+
     <div id="load-dialog" title="From JSON" ng-cloak>
       <p>Paste JSON below</p>
       <textarea rows="10" id="loadjson"></textarea>
     </div>
-    
+
     <div id="save-dialog" title="From JSON" ng-cloak>
       <p>Copy JSON below</p>
       <textarea rows="10" id="savejson" disabled="true"></textarea>
@@ -72,24 +72,26 @@
       </select>
       <input id="event" type="text" placeholder="Event" class="underlined left-align" style="width: 100%;">
     </div>
-    
+
     <div id="clear-dialog" title="Clear your records and start again?" ng-cloak>
       <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to clear all the records?</p>
     </div>
-    
+
     <div ng-hide="true">
     {% endraw %}
     </div>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    
+
+    <script src="http://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
+
     <script type="text/javascript" src='static/javascript/kdm.js'></script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'></script>
     <script type="text/javascript" src='static/javascript/tab.directive.js'></script>
-    
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </body>
 </html>
