@@ -31,6 +31,13 @@
                     <li><a id="loadjson" href="javascript:void(0)">Load JSON</a></li>
                   </ul>
                 </li>
+                <li class="dropdown-submenu">
+                  <a>Account</a>
+                  <ul class="dropdown-menu">
+                    <li><a id="register" href="javascript:void(0)">Register</a></li>
+                    <li><a id="login" href="javascript:void(0)">Login</a></li>
+                  </ul>
+                </li>
                 <li role="separator" class="divider"></li>
                 <li><a id="clearAll" href="javascript:void(0)">Clear all</a></li>
                 <li role="separator" class="divider"></li>
@@ -48,7 +55,7 @@
       <div class="tab-pane jumbotron container active" id="about">
         <h1>Kingdom Death Monster</h1>
         <p>~Web Forms~</p>
-        <small>v0.0.2</small>
+        <small>v0.1.0</small>
       </div>
       <div ng-repeat="kdm in tabs track by $index" id="{{kdm.id}}" class="tab-pane container">
         <div ng-include="kdm.template"></div>
@@ -77,6 +84,34 @@
       <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to clear all the records?</p>
     </div>
 
+    <div id="register-dialog" title="Register" ng-cloak>
+      <div class="form-group" ng-class="{'has-success': usernameok, 'has-error': !usernameok && username}">
+        <label for="username-register">Username</label>
+        <input type="text" class="form-control" id="username-register" placeholder="Username" ng-model="username" ng-blur="wampCheckusername()" >
+        <p class="help-block" ng-show="!usernameok && registererror">{{registererror}}</p>
+      </div >
+       <div class="form-group" ng-class="{'has-error' : !passwordok}">
+        <label for="password-register">Password</label>
+        <input type="password" class="form-control" id="password-register" placeholder="Password">
+        <p class="help-block" ng-show="!passwordok && passworderror">{{passworderror}}</p>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password-register">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm-password-register" placeholder="Password">
+      </div>
+    </div>
+
+    <div id="login-dialog" title="Register" ng-cloak>
+      <div class="form-group">
+        <label for="username-login">Username</label>
+        <input type="text" class="form-control" id="username-login" placeholder="Username">
+      </div>
+       <div class="form-group">
+        <label for="password-login">Password</label>
+        <input type="password" class="form-control" id="password-login" placeholder="Password">
+      </div>
+    </div>
+
     <div ng-hide="true">
     {% endraw %}
     </div>
@@ -87,6 +122,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
     <script src="http://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
+
+    <script src="static/bower_components/angular-wamp/release/angular-wamp.js"></script>
 
     <script type="text/javascript" src='static/javascript/kdm.js'></script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'></script>

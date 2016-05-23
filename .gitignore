@@ -5,3 +5,4 @@
 /.crossbar/node.pid
 /.crossbar/key.priv
 /.crossbar/key.pub
+/static/bower_components

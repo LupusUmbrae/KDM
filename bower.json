@@ -1,0 +1,16 @@
+{
+  "name": "kdm-webforms",
+  "homepage": "www.kdm-webforms.com",
+  "authors": [
+    "LupusUmbrae <robin_moss@btinternet.com>"
+  ],
+  "description": "Webforms for KDM",
+  "main": "",
+  "keywords": [
+    "KDM"
+  ],
+  "private": true,
+  "dependencies": {
+    "angular-wamp": "^0.3.0"
+  }
+}

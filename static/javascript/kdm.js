@@ -1,9 +1,10 @@
 (function() {
     'use strict';
     
-    angular
+    var app = angular
     .module('kdm', [
-    'kdm.config', 
+    'kdm.config',
+    'vxWamp'
     ]);
     
     angular
@@ -11,12 +12,29 @@
 
     angular
     .module('kdm.directives', []);
-    
+
+    app.config(function ($wampProvider) {
+        var wsuri;
+        if (document.location.origin == "file://") {
+          wsuri = "ws://127.0.0.1:8080/ws";
+
+        } else {
+          wsuri = (document.location.protocol === "http:" ? "ws:" : "wss:") + "//" +
+                      document.location.host + "/ws";
+        }
+        $wampProvider.init({
+            url: wsuri,
+            realm: 'realm1'
+        });
+    })
+
     angular
     .module('kdm')
     .run(run);
     
-    run.$inject = ['$rootScope', '$parse'];
+    run.$inject = ['$rootScope', '$parse', '$wamp'];
+
+
     
     function jsonify(scope) {
         return JSON.stringify(scope.tabs);
@@ -33,7 +51,9 @@
         scope.$apply();
     }
     
-    function run($rootScope, $parse) {
+    function run($rootScope, $parse, $wamp) {
+        $wamp.open()
+
         $rootScope.jsonify = function() {
             return jsonify($rootScope);
         }
@@ -52,6 +72,10 @@
         
         $rootScope.deletetab = function(tabid) {
             deleteTab($rootScope, tabid);
+        }
+
+        $rootScope.wampCheckusername = function() {
+            checkUserName($wamp, $rootScope.username, $rootScope)
         }
         
         $rootScope.tabs = [];
@@ -176,11 +200,75 @@
                     }
                 });
             });
-            
+
             $('#clearAll').click(function() {
                 $("#clear-dialog").dialog("open");
             });
+
+            $(function() {
+                $("#register-dialog").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    height: 350,
+                    modal: true,
+                    buttons: {
+                        "Register": function() {
+                            var username = $("#username-register").val()
+                            var password = $("#password-register").val()
+                            var confirmPassword = $("#confirm-password-register").val()
+
+                            if(username === "") {
+                                $rootScope.usernameok = false;
+                                $rootScope.registererror = "Username blank";
+                                $rootScope.$apply();
+                                return;
+                            }
+
+                            if(password === "") {
+                                $rootScope.passwordok = false;
+                                $rootScope.passworderror = "Password is blank";
+                                $rootScope.$apply();
+                                return;
+                            }
+
+                            if(password !== confirmPassword) {
+                                $rootScope.passwordok = false;
+                                $rootScope.passworderror = "Passwords do not match";
+                                $rootScope.$apply();
+                                return;
+                            }
+
+                            $(this).dialog("close");
+                            register($wamp, username, password);
+                        },
+                        Cancel: function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
             
+            $('#register').click(function() {
+                $("#register-dialog").dialog("open");
+            });
+
+             $(function() {
+                $("#login-dialog").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    height: 300,
+                    modal: true,
+                    buttons: {
+                        "login": function() {
+                            $(this).dialog("close");
+                        },
+                        Cancel: function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+
             $('.nav-tabs a').click(function(e) {
                 e.preventDefault()
                 $(this).tab('show')
@@ -307,5 +395,31 @@
             return json;
         })();
         return json;
+    }
+
+    function checkUserName(wamp, username, scope) {
+        if(username === ""){
+            return
+        }
+        wamp.call("com.kdmwebforms.public.checkusername", [username]).then(function(res) {
+            scope.usernameok = res
+            if(res) {
+                scope.registererror = ""
+            } else{
+                scope.registererror = "Username taken"
+            }
+        },
+        function(err){
+            console.log(err)
+        })
+    }
+
+    function register(wamp, username, password) {
+        wamp.call("com.kdmwebforms.public.register", [username, password]).then(function(res) {
+            console.log(res)
+        },
+        function(err){
+            console.log(err)
+        })
     }
 })();

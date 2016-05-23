@@ -13,6 +13,8 @@ class AppSession(ApplicationSession):
 
     log = Logger()
 
+    user_id = None
+
     def __init__(self, config=None):
         ApplicationSession.__init__(self, config)
         print("backend component created")
@@ -27,45 +29,61 @@ class AppSession(ApplicationSession):
     def onChallenge(self, challenge):
         print("backend authentication challenge received")
 
-    def onLeave(self, details):
-        print("backend session left")
-
     def onDisconnect(self):
         print("backend transport disconnected")
+
+    def is_logged_in(self):
+        return self.user_id is not None
 
     @inlineCallbacks
     def onJoin(self, details):
         print("backend session joined: {}".format(details))
 
         def check_username(username):
+            """
+            Helper RPC used to check if a username is taken before calling register
+            :param username: Username to check is available
+            :return: True if the username is not taken, False if it is
+            """
             return self.db.execute("select 1 from users where username = '%s'" % username).fetchall() == []
 
         def register(username, raw_password):
+            """
+            Attempts to register the given username with the given password
+            :param username: Username to register
+            :param raw_password: USers password to register
+            :return: Secret used to authenticate against WAMP with, or exception if successful, otherwise an exception is raised with failure details
+            """
             if check_username(username):
                 self.log.info("Registering user: {name}", name=username)
                 enc_password = common.hash_password(raw_password)
                 try:
                     self.db.execute("insert into users (username, password) values ('%s', '%s')" % (
-                    username, enc_password))
+                        username, enc_password))
                     self.db.commit()
                 except Exception as e:
                     print("DB Execution error: %s" % e)
                     raise Exception("Error in the backend :(")
-                return True
+                return enc_password.split('$')[1]
             else:
                 raise Exception("Username already taken")
 
         def login(username, raw_password):
-            result = self.db.execute("select password from users where username='%s'" % username).fetchone()
+            """
+            Attempt to login the given user
+            :param username: Username to login against
+            :param raw_password: password to check against
+            :return: Secret used to authenticate against WAMP with, or exception
+            """
+            result = self.db.execute("select user_id, password from users where username='%s'" % username).fetchone()
             self.log.info("db select result: {result}", result=result)
             if result is not None and len(result) is not 0:
-                enc_password = result[0]
+                enc_password = result[1]
                 if common.check_password(enc_password, raw_password):
+                    self.user_id = result[0]
                     return enc_password.split('$')[1]
 
             raise Exception("Login failed")
-
-
 
         try:
             yield self.register(check_username, PUBLIC_PREFIX + 'checkusername')
@@ -76,30 +94,67 @@ class AppSession(ApplicationSession):
             print("Unexpected exception while registering public RPC's %s" % e)
             self.log.error("Unexpected exception while registering public RPC's {e}", e=e)
 
-        def save(userid, data, campaignid=None):
-            name = data["name"]
-            if id is not None:
+        def save(name, data, campaignid=None):
+            """
+            Used to save a given game to the database
+            :param name: Name of the campaign
+            :param data: JSON Data containing the campaign details
+            :param campaignid: If this is set update an already existing game, otherwise create one
+            :return: nothing
+            """
+            if not self.is_logged_in():
+                raise Exception("You are not logged in!")
+
+            if campaignid is not None:
                 # update
                 self.db.execute("update kdm set content='%s', name='%s' where user_id='%s' and kdm_id='%s'" % (
-                    data, name, userid, campaignid))
+                    data, name, self.user_id, campaignid))
             else:
                 # insert
                 self.db.execute(
-                    "insert into kdm (owner_id, name, content) values ('%s', '%s', '%s')" % (userid, name, data))
+                    "insert into kdm (owner_id, name, content) values ('%s', '%s', '%s')" % (self.user_id, name, data))
 
-        def load(userid, campaignid):
+        def load(campaignid):
+            """
+            Load a saved campaign from the database
+            :param campaignid: Campaign ID to load
+            :return: Returns an array containing [name, json]
+            """
+            if not self.is_logged_in():
+                raise Exception("You are not logged in!")
             return self.db.execute(
-                "select content from kdm where owner_id='%s' and kdm_id='%s'" % (userid, campaignid)).fetchall()
+                "select name, content from kdm where owner_id='%s' and kdm_id='%s'" % (
+                    self.user_id, campaignid)).fetchone()
 
-        def delete(userid, campaignid):
-            self.db.execute("delete from kdm where user_id='%s' and kdm_id='%s'" % (userid, campaignid))
+        def delete(campaignid):
+            """
+            Deletes a campaign from the database
+            :param campaignid: CampaignID to delete
+            :return: nothing
+            """
+            if not self.is_logged_in():
+                raise Exception("You are not logged in!")
+            self.db.execute("delete from kdm where user_id='%s' and kdm_id='%s'" % (self.user_id, campaignid))
 
-        def list_campaigns(userid):
-            results = self.db.execute("select name, kdm_id from kdm where user_id='%s'" % userid)
-            return results;
+        def list_campaigns():
+            """
+            Get the list of existing campaigns for this user
+            :return:
+            """
+            if not self.is_logged_in():
+                raise Exception("You are not logged in!")
+            return self.db.execute("select name, kdm_id from kdm where user_id='%s'" % self.user_id).fetchall()
 
-        def add_editor(userid, campaignid, username):
-            results = self.db.execute("select user_id from users where username='%s'" % username).fetchall()
+        def add_editor(campaignid, username):
+            """
+            Add a new editor to the given campaign
+            :param campaignid: Campaign ID to add an editor to
+            :param username: username to add
+            :return:
+            """
+            if not self.is_logged_in():
+                raise Exception("You are not logged in!")
+            results = self.db.execute("select user_id from users where username='%s'" % username).fetchone()
             if results is not []:
                 editorid = results[0]
                 self.db.execute(
@@ -108,7 +163,9 @@ class AppSession(ApplicationSession):
             else:
                 raise Exception("Unknown username: %s" % username)
 
-        def remove_editor(userid, campaignid, username):
+        def remove_editor(campaignid, username):
+            if not self.is_logged_in():
+                raise Exception("You are not logged in!")
             results = self.db.execute("select user_id from users where username='%s'" % username).fetchall()
             if results is not []:
                 editorid = results[0]
@@ -117,6 +174,8 @@ class AppSession(ApplicationSession):
                 raise Exception("Unknown username: %s" % username)
 
         def list_editors(userid, campaignid):
+            if not self.is_logged_in():
+                raise Exception("You are not logged in!")
             results = self.db.execute(
                 "select username from users where user_id in (select user_id from kdm_editors where kdm_id='%s')").fetchall(
                 campaignid)
@@ -136,6 +195,7 @@ class AppSession(ApplicationSession):
             self.log.error("Unexpected exception while registering private RPC's {e}", e=e)
 
     def onLeave(self, details):
+        print("backend session left")
         if self.db is not None:
             self.db.close()
 
