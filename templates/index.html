@@ -85,15 +85,15 @@
     </div>
 
     <div id="register-dialog" title="Register" ng-cloak>
-      <div class="form-group" ng-class="{'has-success': usernameok, 'has-error': !usernameok && username}">
+      <div class="form-group" ng-class="{'has-success': register.usernameok, 'has-error': !register.usernameok && register.username}">
         <label for="username-register">Username</label>
-        <input type="text" class="form-control" id="username-register" placeholder="Username" ng-model="username" ng-blur="wampCheckusername()" >
-        <p class="help-block" ng-show="!usernameok && registererror">{{registererror}}</p>
+        <input type="text" class="form-control" id="username-register" placeholder="Username" ng-model="register.username" ng-blur="wampCheckusername()" >
+        <p class="help-block" ng-show="!register.usernameok && register.registererror">{{register.registererror}}</p>
       </div >
-       <div class="form-group" ng-class="{'has-error' : !passwordok}">
+       <div class="form-group" ng-class="{'has-error' : !register.passwordok}">
         <label for="password-register">Password</label>
         <input type="password" class="form-control" id="password-register" placeholder="Password">
-        <p class="help-block" ng-show="!passwordok && passworderror">{{passworderror}}</p>
+        <p class="help-block" ng-show="!register.passwordok && register.passworderror">{{passworderror}}</p>
       </div>
       <div class="form-group">
         <label for="confirm-password-register">Confirm Password</label>
@@ -102,13 +102,15 @@
     </div>
 
     <div id="login-dialog" title="Register" ng-cloak>
-      <div class="form-group">
+      <div class="form-group" ng-class="{'has-error': !login.usernameok}">
         <label for="username-login">Username</label>
-        <input type="text" class="form-control" id="username-login" placeholder="Username">
+        <input type="text" class="form-control" id="username-login" placeholder="Username" ng-model="login.username">
+        <p class="help-block" ng-show="!login.usernameok">{{login.usernameerror}}</p>
       </div>
-       <div class="form-group">
+       <div class="form-group" ng-class="{'has-error' : !login.passwordok}">
         <label for="password-login">Password</label>
-        <input type="password" class="form-control" id="password-login" placeholder="Password">
+        <input type="password" class="form-control" id="password-login" placeholder="Password" ng-model="login.password">
+         <p class="help-block" ng-show="!login.passwordok">{{login.passworderror}}</p>
       </div>
     </div>
 
