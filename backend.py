@@ -1,6 +1,7 @@
 from autobahn.twisted.wamp import ApplicationSession
 from twisted.internet.defer import inlineCallbacks
 from twisted.logger import Logger
+import json
 
 import common
 
@@ -102,17 +103,21 @@ class AppSession(ApplicationSession):
             :param campaignid: If this is set update an already existing game, otherwise create one
             :return: nothing
             """
+            self.log.info("save")
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
 
             if campaignid is not None:
                 # update
+                self.log.info("Update save")
                 self.db.execute("update kdm set content='%s', name='%s' where user_id='%s' and kdm_id='%s'" % (
                     data, name, self.user_id, campaignid))
             else:
                 # insert
+                self.log.info("Create save")
+                self.log.info(type(data))
                 self.db.execute(
-                    "insert into kdm (owner_id, name, content) values ('%s', '%s', '%s')" % (self.user_id, name, data))
+                    "insert into kdm (owner_id, name, content) values ('%s', '%s', '%s')" % (self.user_id, name, json.dumps(data)))
 
         def load(campaignid):
             """
@@ -143,7 +148,12 @@ class AppSession(ApplicationSession):
             """
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
-            return self.db.execute("select name, kdm_id from kdm where user_id='%s'" % self.user_id).fetchall()
+            queryresults = self.db.execute("select name, kdm_id from kdm where user_id='%s'" % self.user_id).fetchall()
+            results = []
+            for entry in queryresults:
+                results.append({"name": entry[0], "id": entry[1]})
+            return results
+
 
         def add_editor(campaignid, username):
             """
@@ -182,13 +192,13 @@ class AppSession(ApplicationSession):
             return results
 
         try:
-            yield self.register(save, PRIVATE_PREFIX + 'save')
-            yield self.register(load, PRIVATE_PREFIX + 'load')
-            yield self.register(delete, PRIVATE_PREFIX + 'delete')
-            yield self.register(list_campaigns, PRIVATE_PREFIX + 'list')
-            yield self.register(add_editor, PRIVATE_PREFIX + 'addEditor')
-            yield self.register(remove_editor, PRIVATE_PREFIX + 'remove_editor')
-            yield self.register(list_editors, PRIVATE_PREFIX + 'list_editors')
+            yield self.register(save, PUBLIC_PREFIX + 'save')
+            yield self.register(load, PUBLIC_PREFIX + 'load')
+            yield self.register(delete, PUBLIC_PREFIX + 'delete')
+            yield self.register(list_campaigns, PUBLIC_PREFIX + 'list')
+            yield self.register(add_editor, PUBLIC_PREFIX + 'addEditor')
+            yield self.register(remove_editor, PUBLIC_PREFIX + 'remove_editor')
+            yield self.register(list_editors, PUBLIC_PREFIX + 'list_editors')
 
         except Exception as e:
             print("Unexpected exception while registering private RPC's %s" % e)

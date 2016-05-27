@@ -29,48 +29,33 @@
         });
     })
     
-    app.provider('$wampAuth', function($wampProvider) {
-        
-        var options = {
-            url: wsuri,
-            realm: 'realm1',
-            prefix: '$wampAuth',
-            
-            authid: 'set_later',
-            authmethods: ["wampcra"]
-        };
-        
-        this.$get = function($injector) {
-            $wampProvider.init(options);
-            return $injector.invoke($wampProvider.$get);
-        }
-        ;
-    })
-    
-    var wampAuth;
-    var username;
-    var loggedIn = false;
-    
     angular
     .module('kdm')
     .run(run);
     
-    run.$inject = ['$rootScope', '$parse', '$wamp', '$wampAuth'];
+    run.$inject = ['$rootScope', '$parse', '$wamp'];
     
-    function run($rootScope, $parse, $wamp, $wampAuth) {
+    function run($rootScope, $parse, $wamp) {
         $wamp.open()
-        
-        wampAuth = $wampAuth
-        
+                
         $rootScope.register = {};
         $rootScope.login = {};
+        
+        $rootScope.account = {};
+        $rootScope.account.loggedIn = false;
+        
+        $rootScope.campaign = {};
         
         $rootScope.jsonify = function() {
             return jsonify($rootScope);
         }
         
         $rootScope.load = function(json) {
-            load($rootScope, json);
+            loadFromJson($rootScope, json);
+        }
+
+        $rootScope.save = function() {
+            save($rootScope, $wamp);
         }
         
         $rootScope.addChar = function(json) {
@@ -89,6 +74,10 @@
             checkUserName($wamp, $rootScope.username, $rootScope)
         }
         
+        $rootScope.logout = function() {
+            logout($rootScope, $wamp);
+        }
+        
         $rootScope.tabs = [];
         
         var local = localStorage.getItem('kdm');
@@ -96,7 +85,7 @@
             addNewSettlement($rootScope);
             addNewChar($rootScope);
         } else {
-            load($rootScope, local);
+            loadFromJson($rootScope, local);
         }
         
         $rootScope.timeline = {};
@@ -117,7 +106,7 @@
                 $(this).toggleClass('open');
             });
             
-            $("#load-dialog").dialog({
+            $("#import-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
                 height: 400,
@@ -125,7 +114,7 @@
                 buttons: {
                     "Load": function() {
                         $(this).dialog("close");
-                        angular.element(document.body).scope().load($('textarea#loadjson').val());
+                        angular.element(document.body).scope().loadFromJson($('textarea#loadjson').val());
                     },
                     Cancel: function() {
                         $(this).dialog("close");
@@ -134,10 +123,10 @@
             });
             
             $("#loadjson").click(function() {
-                $("#load-dialog").dialog("open");
+                $("#import-dialog").dialog("open");
             });
             
-            $("#save-dialog").dialog({
+            $("#export-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
                 height: 400,
@@ -146,7 +135,7 @@
             
             $("#savejson").click(function() {
                 $('textarea#savejson').val(angular.element(document.body).scope().jsonify());
-                $("#save-dialog").dialog("open");
+                $("#export-dialog").dialog("open");
             });
             
             $("#timeline-dialog").dialog({
@@ -289,6 +278,8 @@
                             }
                             
                             if (ok) {
+                                $rootScope.login.username = '';
+                                $rootScope.login.password = '';
                                 login($rootScope, $wamp, username, password)
                                 $(this).dialog("close");
                             }
@@ -302,6 +293,29 @@
             
             $('#login').click(function() {
                 $("#login-dialog").dialog("open");
+            });
+            
+            
+            
+            $(function() {
+                $("#load-dialog").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    height: 300,
+                    modal: true,
+                    buttons: {
+                        "Load": function() {
+                            $(this).dialog("close");
+                        },
+                        Cancel: function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+            
+            $('#load').click(function() {
+                $("#load-dialog").dialog("open");
             });
             
             $('.nav-tabs a').click(function(e) {
@@ -323,7 +337,7 @@
         return JSON.stringify(scope.tabs);
     }
     
-    function load(scope, json) {
+    function loadFromJson(scope, json) {
         var parsed = JSON.parse(json);
         scope.tabs = parsed;
         
@@ -483,17 +497,55 @@
     }
     
     function authWamp(scope, wamp, username, secret) {
-        console.log("Auth WMAP: " + username + " " + secret)
-        loggedIn = true;
-        username = username;
-        scope.$on("$wampAuth.onchallenge", function(event, data) {
-            console.log("Wamp challenge")
-            console.log(data)
-            if (data.method === "wampcra") {
-                return secret;
-            }
-        })
-        wampAuth.setAuthId(username, true);
+        scope.account.loggedIn = true;
+        scope.account.username = username;
+        scope.account.secret = secret;
+    }
+    
+    function logout(scope, wamp) {
+        scope.account = {};
+        scope.account.loggedIn = false
+    }
+    
+    function listCampaigns(scope, wamp) {
+        wamp.call('com.kdmwebforms.private.list', []).then(
+        function(res) {
+            scope.account.campaigns = res
+        }, 
+        function(err) {
+            console.log(err)
+        });
+    }
+    
+    function load(scope, wamp, campaignId, campaignName) {
+        scope.campaign.id = campaignId;
+        scope.campaign.name = campaignName;
+        wamp.call('com.kdmwebforms.private.load', [campaignId]).then(
+        function(res) {
+            loadFromJson(scope, res);
+        }, 
+        function(err) {
+            console.log(err);
+        });
+    }
+    
+    function save(scope, wamp) {
+        console.log("Save")
+        var name = scope.campaign.name;
+        var data = scope.tabs;
+        var id = scope.campaign.id;
+        var params = [name, data];
+        if(id) {
+            params.push(id);
+        }
+
+        wamp.call('com.kdmwebforms.public.save', params).then(
+        function(res) {
+            console.log(res);
+        }, 
+        function(err) {
+            console.log(err);
+        });
     }
 
 })();

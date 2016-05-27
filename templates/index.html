@@ -15,7 +15,11 @@
     {% raw %}
     </div>
     <div ng-view class="container" ng-cloak>
-
+      <div ng-show="account.loggedIn" class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Campaign Name:</span>
+        <input type="text" placeholder="Name" class="noborder" ng-model="campaign.name" style="width: 100%;">
+        <br />
+      </div>
       <ul class="nav nav-tabs">
         <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -34,8 +38,13 @@
                 <li class="dropdown-submenu">
                   <a>Account</a>
                   <ul class="dropdown-menu">
-                    <li><a id="register" href="javascript:void(0)">Register</a></li>
-                    <li><a id="login" href="javascript:void(0)">Login</a></li>
+                    <li ng-show="account.loggedIn"><a id="load" href="javascript:void(0)">Load</a></li>
+                    <li ng-show="account.loggedIn"><a id="save" href="javascript:void(0)" ng-click="save()">Save</a></li>
+                    <li ng-show="account.loggedIn"><a id="share" href="javascript:void(0)">Share</a></li>
+                    <li ng-show="account.loggedIn" role="separator" class="divider"></li>
+                    <li ng-hide="account.loggedIn"><a id="register" href="javascript:void(0)">Register</a></li>
+                    <li ng-hide="account.loggedIn"><a id="login" href="javascript:void(0)">Login</a></li>
+                    <li ng-show="account.loggedIn"><a id="logout" href="javascript:void(0)" ng-click="logout()">Logout</a></li>
                   </ul>
                 </li>
                 <li role="separator" class="divider"></li>
@@ -62,12 +71,12 @@
       </div>
     </div>
 
-    <div id="load-dialog" title="From JSON" ng-cloak>
+    <div id="import-dialog" title="From JSON" ng-cloak>
       <p>Paste JSON below</p>
       <textarea rows="10" id="loadjson"></textarea>
     </div>
 
-    <div id="save-dialog" title="From JSON" ng-cloak>
+    <div id="export-dialog" title="From JSON" ng-cloak>
       <p>Copy JSON below</p>
       <textarea rows="10" id="savejson" disabled="true"></textarea>
     </div>
@@ -114,23 +123,41 @@
       </div>
     </div>
 
+    <div id="load-dialog" title="Load saved game">
+      <button type="button" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh
+      </button>
+      <select class="form-control">
+        <option ng-repeat="campaign in account.campaigns" value="{{campaign.id}}">{{campaign.name}}</option>
+      </select>
+    </div>
+
     <div ng-hide="true">
     {% endraw %}
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js">
+</script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js">
+</script>
 
-    <script src="http://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
+    <script src="static/bower_components/autobahn/autobahn.js">
+</script>
 
-    <script src="static/bower_components/angular-wamp/release/angular-wamp.js"></script>
+    <script src="static/bower_components/angular-wamp/release/angular-wamp.js">
+</script>
 
-    <script type="text/javascript" src='static/javascript/kdm.js'></script>
-    <script type="text/javascript" src='static/javascript/kdm.config.js'></script>
-    <script type="text/javascript" src='static/javascript/tab.directive.js'></script>
+    <script type="text/javascript" src='static/javascript/kdm.js'>
+</script>
+    <script type="text/javascript" src='static/javascript/kdm.config.js'>
+</script>
+    <script type="text/javascript" src='static/javascript/tab.directive.js'>
+</script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+</script>
   </body>
 </html>
