@@ -57,6 +57,13 @@
             deleteTab($rootScope, tabid);
         }
         
+        $rootScope.removeEvent = function(timeline, year, event) {
+            var index = timeline[year.year - 1].events.indexOf(event)
+            if (index >= 0) {
+                timeline[year.year - 1].events.splice(index, 1)
+            }
+        }
+        
         $rootScope.inc = function(item, name="value") {
             if (item[name] === undefined) {
                 item[name] = 0
@@ -155,7 +162,7 @@
                         var setEvent = $rootScope.addtimeline.event;
                         
                         console.log(setType)
-
+                        
                         var ok = true;
                         var msgs = [];
                         if (isNaN(setYear) || setYear < 0 || setYear > 40) {
@@ -202,7 +209,7 @@
                         $(this).dialog("close");
                     }
                 },
-                open : function(event, ui) {
+                open: function(event, ui) {
                     $rootScope.addtimeline.option = "Story";
                     $rootScope.addtimeline.year = undefined;
                     $rootScope.addtimeline.event = undefined;

@@ -26,7 +26,7 @@
                                 <img src="static/images/nemesis.svg" width="15" height="15" ng-show="event.type == 'nemesis'">
                             </div>
                             <div class="col-xs-10">
-                                <small><input type="text" class="noborder fullwidth left-align" readonly ng-model="event.eventName"></small>
+                                <small><span>{{event.eventName}}</span><span ng-hide="event.static" ng-click="removeEvent(kdm.timeline, year, event)">&nbsp;&nbsp;&nbsp;x</span></small>
                             </div>
                         </div>
                         <div  ng-hide="year.events.length" class="row">

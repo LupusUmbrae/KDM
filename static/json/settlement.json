@@ -132,7 +132,8 @@
       "events":[  
         {  
           "type":"story",
-          "eventName":"Returning Survivors"
+          "eventName":"Returning Survivors",
+          "static":true
         }
       ]
     },
@@ -141,7 +142,8 @@
       "events":[  
         {  
           "type":"story",
-          "eventName":"Endless Screams"
+          "eventName":"Endless Screams",
+          "static":true
         }
       ]
     },
@@ -156,7 +158,8 @@
       "events":[  
         {  
           "type":"nemesis",
-          "eventName":"Nemesis Encounter - Butcher"
+          "eventName":"Nemesis Encounter - Butcher",
+          "static":true
         }
       ]
     },
@@ -165,7 +168,8 @@
       "events":[  
         {  
           "type":"story",
-          "eventName":"Hands of Heat"
+          "eventName":"Hands of Heat",
+          "static":true
         }
       ]
     },
@@ -174,7 +178,8 @@
       "events":[  
         {  
           "type":"story",
-          "eventName":"Armoured Strangers"
+          "eventName":"Armoured Strangers",
+          "static":true
         }
       ]
     },
@@ -183,7 +188,8 @@
       "events":[  
         {  
           "type":"story",
-          "eventName":"Phoenix Feather"
+          "eventName":"Phoenix Feather",
+          "static":true
         }
       ]
     },
@@ -198,7 +204,8 @@
       "events":[  
         {  
           "type":"nemesis",
-          "eventName":"Nemesis Encounter - King's Man"
+          "eventName":"Nemesis Encounter - King's Man",
+          "static":true
         }
       ]
     },
@@ -213,7 +220,8 @@
       "events":[  
         {  
           "type":"story",
-          "eventName":"Regal Visit"
+          "eventName":"Regal Visit",
+          "static":true
         }
       ]
     },
@@ -222,7 +230,8 @@
       "events":[  
         {  
           "type":"story",
-          "eventName":"Principle: Conviction"
+          "eventName":"Principle: Conviction",
+          "static":true
         }
       ]
     },
@@ -249,7 +258,8 @@
       "events":[  
         {  
           "type":"nemesis",
-          "eventName":"Nemesis Encounter - "
+          "eventName":"Nemesis Encounter",
+          "static":true
         }
       ]
     },
@@ -270,7 +280,8 @@
       "events":[  
         {  
           "type":"nemesis",
-          "eventName":"Nemesis Encounter - "
+          "eventName":"Nemesis Encounter",
+          "static":true
         }
       ]
     },
@@ -279,7 +290,8 @@
       "events":[  
         {  
           "type":"story",
-          "eventName":"Watched"
+          "eventName":"Watched",
+          "static":true
         }
       ]
     },
@@ -300,7 +312,8 @@
       "events":[  
         {  
           "type":"nemesis",
-          "eventName":"Nemesis Encounter - Level 3"
+          "eventName":"Nemesis Encounter - Level 3",
+          "static":true
         }
       ]
     },
@@ -315,7 +328,8 @@
       "events":[  
         {  
           "type":"nemesis",
-          "eventName":"Nemesis Encounter - Watcher"
+          "eventName":"Nemesis Encounter - Watcher",
+          "static":true
         }
       ]
     },
