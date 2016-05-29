@@ -39,7 +39,7 @@
             </a>
         </li>
         <li ng-repeat="tab in tabs track by $index">
-          <a show-tab="" data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : tab.type === "char" ? "Unnamed Char" : "Unamed Settlement"}} <span ng-click="deletetab(tab.id)" type="button"> x </span></a>
+          <a show-tab="" data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : tab.type === "char" ? "Unnamed Char" : "Unnamed Settlement"}} <span ng-click="deletetab(tab.id)" type="button"> x </span></a>
         </li>
       </ul>
     </div>
