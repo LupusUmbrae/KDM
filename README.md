@@ -4,10 +4,10 @@ An attempt to create a  web form for the [KDM](http://kingdomdeath.com/) Charact
 Currently aiming to make the forms look like the sheets from KDM and allow saving/loading via JSON output
 
 ## How to use
-It's fully hosted and ready to use at [kdm-webforms.com](http://kdm-webforms.com/), the site should be fairly intuative to use
+It's fully hosted and ready to use at [kdm-webforms.com](http://kdm-webforms.com/), the site should be fairly intuitive to use
 
 ## How to run
-You simply need to host the contents of this package with a webserver, for development i use 
+You simply need to host the contents of this package with a webserver, for development I use 
 [Flask] (http://flask.pocoo.org/) which is what the `kdm.py` is used for but any will do just
 make sure the `root` for the web server is the root of the git repo
 
