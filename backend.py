@@ -1,7 +1,7 @@
 from autobahn.twisted.wamp import ApplicationSession
 from twisted.internet.defer import inlineCallbacks
 from twisted.logger import Logger
-import json
+import traceback
 
 import common
 
@@ -59,7 +59,7 @@ class AppSession(ApplicationSession):
                 self.log.info("Registering user: {name}", name=username)
                 enc_password = common.hash_password(raw_password)
                 try:
-                    self.db.execute("insert into users (username, password) values ('%s', '%s')" % (
+                    self.db.execute("insert into users (username, password) values (?, ?)", (
                         username, enc_password))
                     self.db.commit()
                 except Exception as e:
@@ -76,13 +76,18 @@ class AppSession(ApplicationSession):
             :param raw_password: password to check against
             :return: Secret used to authenticate against WAMP with, or exception
             """
-            result = self.db.execute("select user_id, password from users where username='%s'" % username).fetchone()
-            self.log.info("db select result: {result}", result=result)
-            if result is not None and len(result) is not 0:
-                enc_password = result[1]
-                if common.check_password(enc_password, raw_password):
-                    self.user_id = result[0]
-                    return enc_password.split('$')[1]
+            try:
+                result = self.db.execute(
+                    "select user_id, password from users where username=?", (username,)).fetchone()
+                self.log.info("db select result: {result}", result=result)
+                if result is not None and len(result) is not 0:
+                    enc_password = result[1]
+                    if common.check_password(enc_password, raw_password):
+                        self.user_id = int(result[0])
+                        return enc_password.split('$')[1]
+            except Exception as e:
+                self.log.error(traceback.format_exc())
+                self.log.error(str(e))
 
             raise Exception("Login failed")
 
@@ -106,18 +111,22 @@ class AppSession(ApplicationSession):
             self.log.info("save")
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
+            try:
+                if campaignid is not None:
+                    # update
+                    self.log.info("Update save")
+                    self.db.execute("update kdm set content=?, name=? where user_id=? and kdm_id=?", (data, name,
+                                                                                                      self.user_id,
+                                                                                                      campaignid))
+                else:
+                    # insert
+                    self.log.info("Create save")
+                    self.db.execute("insert into kdm (owner_id, name, content) values (?, ?, ?)", (self.user_id, name,
+                                                                                                   data))
 
-            if campaignid is not None:
-                # update
-                self.log.info("Update save")
-                self.db.execute("update kdm set content='%s', name='%s' where user_id='%s' and kdm_id='%s'" % (
-                    data, name, self.user_id, campaignid))
-            else:
-                # insert
-                self.log.info("Create save")
-                self.log.info(type(data))
-                self.db.execute(
-                    "insert into kdm (owner_id, name, content) values ('%s', '%s', '%s')" % (self.user_id, name, json.dumps(data)))
+                self.db.commit()
+            except Exception as e:
+                self.log.error(str(e))
 
         def load(campaignid):
             """
@@ -128,8 +137,7 @@ class AppSession(ApplicationSession):
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
             return self.db.execute(
-                "select name, content from kdm where owner_id='%s' and kdm_id='%s'" % (
-                    self.user_id, campaignid)).fetchone()
+                "select name, content from kdm where owner_id=? and kdm_id=?", (self.user_id, campaignid)).fetchone()
 
         def delete(campaignid):
             """
@@ -139,7 +147,7 @@ class AppSession(ApplicationSession):
             """
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
-            self.db.execute("delete from kdm where user_id='%s' and kdm_id='%s'" % (self.user_id, campaignid))
+            self.db.execute("delete from kdm where user_id=? and kdm_id=?", (self.user_id, campaignid))
 
         def list_campaigns():
             """
@@ -148,12 +156,16 @@ class AppSession(ApplicationSession):
             """
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
-            queryresults = self.db.execute("select name, kdm_id from kdm where user_id='%s'" % self.user_id).fetchall()
-            results = []
-            for entry in queryresults:
-                results.append({"name": entry[0], "id": entry[1]})
-            return results
-
+            try:
+                queryresults = self.db.execute("select name, kdm_id from kdm where owner_id=?",
+                                               (self.user_id,)).fetchall()
+                results = []
+                for entry in queryresults:
+                    results.append({"name": entry[0], "id": entry[1]})
+                return results
+            except Exception as e:
+                self.log.error(traceback.format_exc())
+                raise Exception("Failed to list campaigns")
 
         def add_editor(campaignid, username):
             """
@@ -164,22 +176,22 @@ class AppSession(ApplicationSession):
             """
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
-            results = self.db.execute("select user_id from users where username='%s'" % username).fetchone()
+            results = self.db.execute("select user_id from users where username=?", (username,)).fetchone()
             if results is not []:
                 editorid = results[0]
                 self.db.execute(
-                    "insert into kdm_editors (kdm_id, user_id) values ('%s', '%s') where not exists(select 1 from kdm_editors where kdm_id='%s' and user_id='%s')" % (
-                        campaignid, editorid, campaignid, editorid))
+                    "insert into kdm_editors (kdm_id, user_id) values (?, ?) where not exists(select 1 from "
+                    "kdm_editors where kdm_id=? and user_id=?)", (campaignid, editorid, campaignid, editorid))
             else:
                 raise Exception("Unknown username: %s" % username)
 
         def remove_editor(campaignid, username):
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
-            results = self.db.execute("select user_id from users where username='%s'" % username).fetchall()
+            results = self.db.execute("select user_id from users where username=?", (username,)).fetchall()
             if results is not []:
                 editorid = results[0]
-                self.db.execute("delete from kdm_editors where kdm_id='%s' and user_id='%s'" % (campaignid, editorid))
+                self.db.execute("delete from kdm_editors where kdm_id=? and user_id=?", (campaignid, editorid))
             else:
                 raise Exception("Unknown username: %s" % username)
 
@@ -187,8 +199,8 @@ class AppSession(ApplicationSession):
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
             results = self.db.execute(
-                "select username from users where user_id in (select user_id from kdm_editors where kdm_id='%s')").fetchall(
-                campaignid)
+                "select username from users where user_id in (select user_id from kdm_editors where kdm_id=?)",
+                (campaignid,)).fetchall()
             return results
 
         try:

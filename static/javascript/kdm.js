@@ -37,7 +37,7 @@
     
     function run($rootScope, $parse, $wamp) {
         $wamp.open()
-                
+        
         $rootScope.register = {};
         $rootScope.login = {};
         
@@ -49,13 +49,13 @@
         $rootScope.jsonify = function() {
             return jsonify($rootScope);
         }
-        
-        $rootScope.load = function(json) {
-            loadFromJson($rootScope, json);
-        }
-
+                
         $rootScope.save = function() {
             save($rootScope, $wamp);
+        }
+        
+        $rootScope.listCampaigns = function() {
+            listCampaigns($rootScope, $wamp)
         }
         
         $rootScope.addChar = function(json) {
@@ -114,7 +114,8 @@
                 buttons: {
                     "Load": function() {
                         $(this).dialog("close");
-                        angular.element(document.body).scope().loadFromJson($('textarea#loadjson').val());
+                        loadFromJson($rootScope, $('textarea#loadjson').val());
+                        $rootScope.$apply()
                     },
                     Cancel: function() {
                         $(this).dialog("close");
@@ -305,7 +306,14 @@
                     modal: true,
                     buttons: {
                         "Load": function() {
-                            $(this).dialog("close");
+                            var campaignId = $('#selectCampaign').val()
+                            if (campaignId !== undefined) {
+                                load($rootScope, $wamp, campaignId)
+                                $(this).dialog("close");
+                            } else {
+                            // Ewwor!
+                            }
+                        
                         },
                         Cancel: function() {
                             $(this).dialog("close");
@@ -345,7 +353,7 @@
             watchTab(scope, kdm, index);
         })
         
-        scope.$apply();
+        //scope.$apply();
     }
     
     function addNewChar(scope) {
@@ -500,6 +508,7 @@
         scope.account.loggedIn = true;
         scope.account.username = username;
         scope.account.secret = secret;
+        listCampaigns(scope, wamp);
     }
     
     function logout(scope, wamp) {
@@ -508,7 +517,7 @@
     }
     
     function listCampaigns(scope, wamp) {
-        wamp.call('com.kdmwebforms.private.list', []).then(
+        wamp.call('com.kdmwebforms.public.list', []).then(
         function(res) {
             scope.account.campaigns = res
         }, 
@@ -517,12 +526,13 @@
         });
     }
     
-    function load(scope, wamp, campaignId, campaignName) {
+    function load(scope, wamp, campaignId) {
         scope.campaign.id = campaignId;
-        scope.campaign.name = campaignName;
-        wamp.call('com.kdmwebforms.private.load', [campaignId]).then(
+        wamp.call('com.kdmwebforms.public.load', [campaignId]).then(
         function(res) {
-            loadFromJson(scope, res);
+            console.log(res)
+            loadFromJson(scope, res[1]);
+            scope.campaign.name = res[0];
         }, 
         function(err) {
             console.log(err);
@@ -532,13 +542,13 @@
     function save(scope, wamp) {
         console.log("Save")
         var name = scope.campaign.name;
-        var data = scope.tabs;
+        var data = JSON.stringify(scope.tabs);
         var id = scope.campaign.id;
         var params = [name, data];
-        if(id) {
+        if (id) {
             params.push(id);
         }
-
+        
         wamp.call('com.kdmwebforms.public.save', params).then(
         function(res) {
             console.log(res);
