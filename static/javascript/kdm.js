@@ -53,6 +53,24 @@
         $rootScope.deletetab = function(tabid) {
             deleteTab($rootScope, tabid);
         }
+
+        $rootScope.inc = function(item, name="value") {
+            if(item[name] === undefined) {
+                item[name] = 0
+            }else if(typeof item[name] === "string") {
+                item[name] = Number(item[name])
+            }
+            item[name] += 1;
+        }
+
+        $rootScope.dec = function(item, name="value") {
+            if(item[name] === undefined) {
+                item[name] = 0
+            }else if(typeof item[name] === "string") {
+                item[name] = Number(item[name])
+            }
+            item[name] -= 1;
+        }
         
         $rootScope.tabs = [];
         

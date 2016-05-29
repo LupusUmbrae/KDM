@@ -1,1 +1,3 @@
 /kdmvenv
+*.pyc
+/.idea

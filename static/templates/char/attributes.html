@@ -2,7 +2,9 @@
   <div class="col-xs-2" ng-repeat="attr in kdm.attrs" style="padding: 5px" ng-class="{attr:!$first}">
     <div class="row">
       <div class="col-xs-12 align-centre">
+        <button type="button" class="btn btn-default btn-xs" ng-click="dec(attr)">&lt;</button>
         <input type="text" size="2" ng-model="attr.value">
+        <button type="button" class="btn btn-default btn-xs" ng-click="inc(attr)">&gt;</button>
       </div>
     </div>
     <div class="row">

@@ -1,9 +1,11 @@
 <div class="row bordered element" style="padding: 0px;">
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     <div class="row">
       <div class="col-xs-12 align-centre">
         <br />
+        <button type="button" class="btn btn-default btn-xs" ng-click="dec(kdm.brain)">&lt;</button>
         <input type="text" size="2" placeholder="0" ng-model="kdm.brain.value">
+        <button type="button" class="btn btn-default btn-xs" ng-click="inc(kdm.brain)">&gt;</button>
       </div>
     </div>
     <div class="row">
@@ -13,7 +15,7 @@
     </div>
   </div>
   
-  <div class="col-xs-9"  style="border-left: 1px solid black; padding: 5px">
+  <div class="col-xs-8"  style="border-left: 1px solid black; padding: 5px">
     <div class="row">
       <div class="col-xs-12">
         <big><strong>Brain</strong></big>
