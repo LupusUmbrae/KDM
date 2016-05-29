@@ -38,8 +38,8 @@
                   "allow": {
                     "call": true,
                     "register": false,
-                    "publish": false,
-                    "subscribe": false
+                    "publish": true,
+                    "subscribe": true
                   },
                   "disclose": {
                     "caller": false,
