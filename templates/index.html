@@ -17,7 +17,7 @@
     <div ng-view class="container" ng-cloak>
       <div ng-show="account.loggedIn" class="input-group">
         <span class="input-group-addon" id="basic-addon1">Campaign Name:</span>
-        <input type="text" placeholder="Name" class="noborder" ng-model="campaign.name" style="width: 100%;">
+        <input type="text" placeholder="Name" class="noborder left-align" ng-model="campaign.name" style="width: 100%;">
       </div>
       <br ng-show="account.loggedIn" />
       <ul class="nav nav-tabs">
@@ -40,7 +40,10 @@
                   <ul class="dropdown-menu">
                     <li ng-show="account.loggedIn"><a id="load" href="javascript:void(0)">Load</a></li>
                     <li ng-show="account.loggedIn"><a id="save" href="javascript:void(0)" ng-click="save()">Save</a></li>
+                    <li ng-show="account.loggedIn" role="separator" class="divider"></li>
                     <li ng-show="account.loggedIn"><a id="share" href="javascript:void(0)">Share</a></li>
+                    <li ng-show="account.loggedIn"><a id="join" href="javascript:void(0)">Join</a></li>
+                    <li ng-show="account.loggedIn"><a id="editors" href="javascript:void(0)">Editors</a></li>
                     <li ng-show="account.loggedIn" role="separator" class="divider"></li>
                     <li ng-hide="account.loggedIn"><a id="register" href="javascript:void(0)">Register</a></li>
                     <li ng-hide="account.loggedIn"><a id="login" href="javascript:void(0)">Login</a></li>
@@ -124,12 +127,29 @@
     </div>
 
     <div id="load-dialog" title="Load saved game">
-      <button type="button" class="btn btn-default btn-lg" ng-click="listCampaigns()">
+      <button type="button" class="btn btn-default" ng-click="listCampaigns()">
         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh
       </button>
       <select class="form-control" id="selectCampaign">
         <option ng-repeat="campaign in account.campaigns" value="{{campaign.id}}">{{campaign.name}}</option>
       </select>
+    </div>
+
+    <div id="editors-dialog" title="Editors">
+        <ul>
+            <li ng-repeat="editor in campaign.editors">
+            {{editor}}
+              <button type="button" class="btn btn-default btn-xs" ng-click="removeEditor(editor)">
+                X
+              </button>
+            </li>
+        </ul>
+        <div ng-hide="campaign.editors || campaign.editors.length > 0">No editors on this campaign</div>
+        <input type="text" id="addEditorName"></input>
+        <button type="button" class="btn btn-default btn-sm" ng-click="addEditor()">
+                Add
+        </button>
+        <p ng-hide="addEditorerrors.addEditorOk">{{errors.addEditor}}</p>
     </div>
 
     <div ng-hide="true">

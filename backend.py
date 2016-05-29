@@ -115,9 +115,9 @@ class AppSession(ApplicationSession):
                 if campaignid is not None:
                     # update
                     self.log.info("Update save")
-                    self.db.execute("update kdm set content=?, name=? where user_id=? and kdm_id=?", (data, name,
-                                                                                                      self.user_id,
-                                                                                                      campaignid))
+                    self.db.execute("update kdm set content=?, name=? where owner_id=? and kdm_id=?", (data, name,
+                                                                                                       self.user_id,
+                                                                                                       campaignid))
                 else:
                     # insert
                     self.log.info("Create save")
@@ -148,6 +148,7 @@ class AppSession(ApplicationSession):
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
             self.db.execute("delete from kdm where user_id=? and kdm_id=?", (self.user_id, campaignid))
+            self.db.commit()
 
         def list_campaigns():
             """
@@ -176,31 +177,41 @@ class AppSession(ApplicationSession):
             """
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
-            results = self.db.execute("select user_id from users where username=?", (username,)).fetchone()
-            if results is not []:
-                editorid = results[0]
-                self.db.execute(
-                    "insert into kdm_editors (kdm_id, user_id) values (?, ?) where not exists(select 1 from "
-                    "kdm_editors where kdm_id=? and user_id=?)", (campaignid, editorid, campaignid, editorid))
-            else:
-                raise Exception("Unknown username: %s" % username)
+            try:
+                results = self.db.execute("select user_id from users where username=?", (username,)).fetchone()
+                if results is not []:
+                    editorid = results[0]
+                    self.db.execute(
+                        "insert into kdm_editors (kdm_id, user_id) values (?, ?)", (campaignid, editorid))
+                    self.db.commit()
+                else:
+                    raise Exception("Unknown username: %s" % username)
+            except:
+                self.log.error(traceback.format_exc())
+                raise Exception("Failed to add editor")
 
         def remove_editor(campaignid, username):
-            if not self.is_logged_in():
-                raise Exception("You are not logged in!")
-            results = self.db.execute("select user_id from users where username=?", (username,)).fetchall()
-            if results is not []:
-                editorid = results[0]
-                self.db.execute("delete from kdm_editors where kdm_id=? and user_id=?", (campaignid, editorid))
-            else:
-                raise Exception("Unknown username: %s" % username)
+            try:
+                if not self.is_logged_in():
+                    raise Exception("You are not logged in!")
+                results = self.db.execute("select user_id from users where username=?", (username,)).fetchone()
+                if results is not []:
+                    editorid = results[0]
+                    self.db.execute("delete from kdm_editors where kdm_id=? and user_id=?", (campaignid, editorid))
+                    self.db.commit()
+                else:
+                    raise Exception("Unknown username: %s" % username)
+            except Exception as e:
+                self.log.error(str(e))
+                self.log.error(traceback.format_exc())
+                raise Exception("Failed to add editor")
 
-        def list_editors(userid, campaignid):
+        def list_editors(campaignid):
             if not self.is_logged_in():
                 raise Exception("You are not logged in!")
             results = self.db.execute(
                 "select username from users where user_id in (select user_id from kdm_editors where kdm_id=?)",
-                (campaignid,)).fetchall()
+                (campaignid,)).fetchall()[0]
             return results
 
         try:
@@ -208,7 +219,7 @@ class AppSession(ApplicationSession):
             yield self.register(load, PUBLIC_PREFIX + 'load')
             yield self.register(delete, PUBLIC_PREFIX + 'delete')
             yield self.register(list_campaigns, PUBLIC_PREFIX + 'list')
-            yield self.register(add_editor, PUBLIC_PREFIX + 'addEditor')
+            yield self.register(add_editor, PUBLIC_PREFIX + 'add_editor')
             yield self.register(remove_editor, PUBLIC_PREFIX + 'remove_editor')
             yield self.register(list_editors, PUBLIC_PREFIX + 'list_editors')
 

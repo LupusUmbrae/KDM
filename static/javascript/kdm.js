@@ -7,6 +7,13 @@
     'vxWamp'
     ]);
     
+    var editorWatch;
+    var editorsLoaded;
+    
+    var wamp;
+
+    var campaignId;
+    
     var wsuri;
     if (document.location.origin == "file://") {
         wsuri = "ws://127.0.0.1:8080/ws";
@@ -38,8 +45,11 @@
     function run($rootScope, $parse, $wamp) {
         $wamp.open()
         
+        wamp = $wamp;
+        
         $rootScope.register = {};
         $rootScope.login = {};
+        $rootScope.errors = {};
         
         $rootScope.account = {};
         $rootScope.account.loggedIn = false;
@@ -49,7 +59,7 @@
         $rootScope.jsonify = function() {
             return jsonify($rootScope);
         }
-                
+        
         $rootScope.save = function() {
             save($rootScope, $wamp);
         }
@@ -78,6 +88,32 @@
             logout($rootScope, $wamp);
         }
         
+        $rootScope.addEditor = function() {
+            var username = $('#addEditorName').val();
+            checkUserName($wamp, username, 
+            function(res) {
+                
+                if (!res) {
+                    $rootScope.errors.addEditor = ""
+                    $rootScope.errors.addEditorOk = !res;
+                    if ($rootScope.campaign.editors === undefined) {
+                        $rootScope.campaign.editors = [];
+                    }
+                    $rootScope.campaign.editors.push(username)
+                } else {
+                    $rootScope.errors.addEditor = "Unknown user: " + username
+                    $rootScope.errors.addEditorOk = !res;
+                }
+            });
+        }
+        
+        $rootScope.removeEditor = function(username) {
+            var index = $rootScope.campaign.editors.indexOf(username);
+            if(index >= 0) {
+                $rootScope.campaign.editors.splice(index, 1);
+            }
+        }
+
         $rootScope.tabs = [];
         
         var local = localStorage.getItem('kdm');
@@ -130,8 +166,7 @@
             $("#export-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
-                height: 400,
-                modal: true,
+                height: 400
             });
             
             $("#savejson").click(function() {
@@ -296,8 +331,6 @@
                 $("#login-dialog").dialog("open");
             });
             
-            
-            
             $(function() {
                 $("#load-dialog").dialog({
                     autoOpen: false,
@@ -326,6 +359,28 @@
                 $("#load-dialog").dialog("open");
             });
             
+            $(function() {
+                $("#editors-dialog").dialog({
+                    autoOpen: false,
+                    resizable: true,
+                    height: 300,
+                    close: function() {
+                        if (editorWatch !== undefined) {
+                            editorWatch();
+                        } else {
+                            console.log("Editors watcher undefined")
+                        }
+                    }
+                });
+            });
+            
+            $('#editors').click(function() {
+                editorsLoaded = false;
+                loadEditors($rootScope, $wamp);
+                editorWatch = $rootScope.$watch('campaign.editors', watchEditors, true);
+                $("#editors-dialog").dialog("open");
+            });
+            
             $('.nav-tabs a').click(function(e) {
                 e.preventDefault()
                 $(this).tab('show')
@@ -352,8 +407,6 @@
         parsed.forEach(function(kdm, index) {
             watchTab(scope, kdm, index);
         })
-        
-        //scope.$apply();
     }
     
     function addNewChar(scope) {
@@ -486,6 +539,16 @@
         })
     }
     
+    function checkUserName(wamp, username, okcallback) {
+        if (username === "") {
+            return
+        }
+        wamp.call("com.kdmwebforms.public.checkusername", [username]).then(okcallback, 
+        function(err) {
+            console.log(err)
+        })
+    }
+    
     function register(scope, wamp, username, password) {
         wamp.call("com.kdmwebforms.public.register", [username, password]).then(function(res) {
             authWamp(wamp, username, res)
@@ -526,11 +589,11 @@
         });
     }
     
-    function load(scope, wamp, campaignId) {
-        scope.campaign.id = campaignId;
+    function load(scope, wamp, id) {
+        scope.campaign.id = id;
+        campaignId = id;
         wamp.call('com.kdmwebforms.public.load', [campaignId]).then(
         function(res) {
-            console.log(res)
             loadFromJson(scope, res[1]);
             scope.campaign.name = res[0];
         }, 
@@ -552,6 +615,72 @@
         wamp.call('com.kdmwebforms.public.save', params).then(
         function(res) {
             console.log(res);
+        }, 
+        function(err) {
+            console.log(err);
+        });
+    }
+    
+    function loadEditors(scope, wamp) {
+        var campiagnId = scope.campaign.id;
+        if (campiagnId === undefined) {
+            return
+        }
+        wamp.call("com.kdmwebforms.public.list_editors", [campiagnId]).then(
+        function(res) {
+            scope.campaign.editors = res;
+        }, 
+        function(err) {
+            console.log(err);
+        });
+    }
+    
+    function watchEditors(newVal, oldVal) {
+        if (newVal !== oldVal) {
+            if (!editorsLoaded) {
+                // Skip first load of editors
+                editorsLoaded = true;
+            } else {
+                var newEditors = [];
+                var removedEditors = [];
+                
+                newVal.forEach(function(val) {
+                    if (oldVal.indexOf(val) < 0) {
+                        newEditors.push(val);
+                    }
+                });
+                
+                oldVal.forEach(function(val) {
+                    if (newVal.indexOf(val) < 0) {
+                        removedEditors.push(val);
+                    }
+                });
+                
+                removedEditors.forEach(function(val) {
+                    removeEditor(val);
+                });
+                
+                newEditors.forEach(function(val) {
+                    addEditor(val);
+                });
+            }
+        }
+    }
+    
+    function addEditor(username) {
+        wamp.call("com.kdmwebforms.public.add_editor", [campaignId, username]).then(
+        function(res) {
+            console.log("Editor added: " + username)
+        }, 
+        function(err) {
+            console.log(err);
+        });
+    }
+    
+    function removeEditor(username) {
+        wamp.call("com.kdmwebforms.public.remove_editor", [campaignId, username]).then(
+        function(res) {
+            console.log("Editor removed: " + username)
         }, 
         function(err) {
             console.log(err);
