@@ -8,7 +8,7 @@
     
     angular
     .module('kdm.config', []);
-
+    
     angular
     .module('kdm.directives', []);
     
@@ -29,11 +29,14 @@
         parsed.forEach(function(kdm, index) {
             watchTab(scope, kdm, index);
         })
-
+        
         scope.$apply();
     }
     
     function run($rootScope, $parse) {
+        
+        $rootScope.addtimeline = {}
+        
         $rootScope.jsonify = function() {
             return jsonify($rootScope);
         }
@@ -53,20 +56,20 @@
         $rootScope.deletetab = function(tabid) {
             deleteTab($rootScope, tabid);
         }
-
+        
         $rootScope.inc = function(item, name="value") {
-            if(item[name] === undefined) {
+            if (item[name] === undefined) {
                 item[name] = 0
-            }else if(typeof item[name] === "string") {
+            } else if (typeof item[name] === "string") {
                 item[name] = Number(item[name])
             }
             item[name] += 1;
         }
-
+        
         $rootScope.dec = function(item, name="value") {
-            if(item[name] === undefined) {
+            if (item[name] === undefined) {
                 item[name] = 0
-            }else if(typeof item[name] === "string") {
+            } else if (typeof item[name] === "string") {
                 item[name] = Number(item[name])
             }
             item[name] -= 1;
@@ -89,17 +92,17 @@
         
         $(function() {
             $('.dropdown-submenu').click(
-                function(event) {
-                    // stop bootstrap.js to hide the parents
-                    event.stopPropagation();
-                    // hide the open children
-                    $( this ).find(".dropdown-submenu").removeClass('open');
-                    // add 'open' class to all parents with class 'dropdown-submenu'
-                    $( this ).parents(".dropdown-submenu").addClass('open');
-                    // this is also open (or was)
-                    $( this ).toggleClass('open');
+            function(event) {
+                // stop bootstrap.js to hide the parents
+                event.stopPropagation();
+                // hide the open children
+                $(this).find(".dropdown-submenu").removeClass('open');
+                // add 'open' class to all parents with class 'dropdown-submenu'
+                $(this).parents(".dropdown-submenu").addClass('open');
+                // this is also open (or was)
+                $(this).toggleClass('open');
             });
-
+            
             $("#load-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
@@ -135,7 +138,7 @@
             $("#timeline-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
-                height: 160,
+                height: 190,
                 modal: true,
                 position: {
                     my: "center top",
@@ -144,32 +147,66 @@
                 },
                 buttons: {
                     "Add Event": function() {
-                        $(this).dialog("close");
-                        
                         var openSettlement = $("div.active");
                         var settlementId = openSettlement.attr("id");
                         
-                        var setYear = Number($(this).find("#year").val());
-                        var setType = $(this).find("select").val();
-                        var setEvent = $(this).find("#event").val();
-                        var tab;
-                        $rootScope.tabs.forEach(function(curTab) {
-                            if (curTab.id === settlementId) {
-                                tab = curTab;
-                            }
-                        });
+                        var setYear = Number($rootScope.addtimeline.year);
+                        var setType = $rootScope.addtimeline.option;
+                        var setEvent = $rootScope.addtimeline.event;
                         
-                        if (tab.type === "settlement" && Number.isInteger(setYear)) {
-                            tab.timeline[setYear - 1].events.push({
-                                type: setType.toLowerCase(),
-                                eventName: setEvent
-                            });
-                            $rootScope.$apply();
+                        console.log(setType)
+
+                        var ok = true;
+                        var msgs = [];
+                        if (isNaN(setYear) || setYear < 0 || setYear > 40) {
+                            ok = false;
+                            $rootScope.addtimeline.yearok = false;
+                            if (isNaN(setYear)) {
+                                msgs.push("Year is not set")
+                            } else {
+                                msgs.push("Year is out of range")
+                            }
                         }
+                        
+                        if (setEvent === undefined || setEvent === "") {
+                            ok = false;
+                            $rootScope.addtimeline.eventok = false;
+                            msgs.push("Event text not set");
+                        }
+                        if (ok) {
+                            var tab;
+                            
+                            $rootScope.addtimeline.error = false;
+                            $rootScope.addtimeline.errormsg = "";
+                            
+                            $rootScope.tabs.forEach(function(curTab) {
+                                if (curTab.id === settlementId) {
+                                    tab = curTab;
+                                }
+                            });
+                            
+                            if (tab.type === "settlement" && Number.isInteger(setYear)) {
+                                tab.timeline[setYear - 1].events.push({
+                                    type: setType.toLowerCase(),
+                                    eventName: setEvent
+                                });
+                            }
+                            $(this).dialog("close");
+                        } else {
+                            $rootScope.addtimeline.error = true;
+                            $rootScope.addtimeline.errormsg = msgs.join(", ");
+                        }
+                        $rootScope.$apply();
                     },
                     Cancel: function() {
                         $(this).dialog("close");
                     }
+                },
+                open : function(event, ui) {
+                    $rootScope.addtimeline.option = "Story";
+                    $rootScope.addtimeline.year = undefined;
+                    $rootScope.addtimeline.event = undefined;
+                    $rootScope.$apply();
                 }
             });
             
@@ -239,7 +276,7 @@
         
         watchTab(scope, kdm, lastIndex);
     }
-
+    
     function watchTab(scope, kdm, tabIndex) {
         if (kdm.type === "char") {
             scope.$watch('tabs[' + tabIndex + '].courage.levels', watchCheckboxArray, true);
