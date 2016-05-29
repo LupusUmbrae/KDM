@@ -68,61 +68,6 @@
                   "cache": true
                 }
               ]
-            },
-            {
-              "name": "frontend",
-              "permissions": [
-                {
-                  "uri": "",
-                  "match": "prefix",
-                  "allow": {
-                    "call": false,
-                    "register": false,
-                    "publish": false,
-                    "subscribe": false
-                  },
-                  "disclose": {
-                    "caller": false,
-                    "publisher": false
-                  },
-                  "cache": true
-                },
-                {
-                  "uri": "com.kdmwebforms.private.",
-                  "match": "prefix",
-                  "allow": {
-                    "call": true,
-                    "register": false,
-                    "publish": true,
-                    "subscribe": true
-                  },
-                  "disclose": {
-                    "caller": false,
-                    "publisher": false
-                  },
-                  "cache": true
-                }
-              ]
-            },
-            {
-              "name": "authenticator",
-              "permissions": [
-                {
-                  "uri": "com.kdmwebforms.authenticate",
-                  "match": "exact",
-                  "allow": {
-                    "call": false,
-                    "register": true,
-                    "publish": false,
-                    "subscribe": false
-                  },
-                  "disclose": {
-                    "caller": false,
-                    "publisher": false
-                  },
-                  "cache": true
-                }
-              ]
             }
           ]
         }
@@ -146,10 +91,6 @@
             "ws": {
               "type": "websocket",
               "auth": {
-                "wampcra": {
-                  "type": "dynamic",
-                  "authenticator": "com.kdmwebforms.authenticate"
-                },
                 "anonymous": {
                   "type": "static",
                   "role": "public"
@@ -165,12 +106,6 @@
           "classname": "backend.AppSession",
           "realm": "realm1",
           "role": "backend"
-        },
-        {
-          "type": "class",
-          "classname": "authenticator.AuthenticatorSession",
-          "realm": "realm1",
-          "role": "authenticator"
         }
       ]
     }
