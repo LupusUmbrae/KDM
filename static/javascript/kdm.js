@@ -54,32 +54,32 @@
         }
         
         $rootScope.deleteTab = function(tab) {
-            $('#confirm-delete-dialog').data('tab', {
-                tab
-            }).dialog('open')
+            $('#confirm-delete-dialog').data('tab', tab).dialog('open')
         }
         
         $rootScope.removeEvent = function(timeline, year, event) {
             var index = timeline[year.year - 1].events.indexOf(event)
             if (index >= 0) {
-                timeline[year.year - 1].events.splice(index, 1)
+                timeline[year.year - 1].events.splice(index, 1);
             }
         }
         
-        $rootScope.inc = function(item, name="value") {
+        $rootScope.inc = function(item, name) {
+            var name = typeof name  !=='undefined' ? name : "value";
             if (item[name] === undefined) {
                 item[name] = 0
             } else if (typeof item[name] === "string") {
-                item[name] = Number(item[name])
+                item[name] = parseInt(item[name], 10)
             }
             item[name] += 1;
         }
         
-        $rootScope.dec = function(item, name="value") {
+        $rootScope.dec = function(item, name) {
+            var name = typeof name  !=='undefined' ? name : "value";
             if (item[name] === undefined) {
                 item[name] = 0
             } else if (typeof item[name] === "string") {
-                item[name] = Number(item[name])
+                item[name] = parseInt(item[name], 10)
             }
             item[name] -= 1;
         }
@@ -161,7 +161,7 @@
                         var openSettlement = $("div.active");
                         var settlementId = openSettlement.attr("id");
                         
-                        var setYear = Number($rootScope.addtimeline.year);
+                        var setYear = parseInt($rootScope.addtimeline.year, 10);
                         var setType = $rootScope.addtimeline.option;
                         var setEvent = $rootScope.addtimeline.event;
                         
@@ -196,7 +196,7 @@
                                 }
                             });
                             
-                            if (tab.type === "settlement" && Number.isInteger(setYear)) {
+                            if (tab.type === "settlement") {
                                 tab.timeline[setYear - 1].events.push({
                                     type: setType.toLowerCase(),
                                     eventName: setEvent
