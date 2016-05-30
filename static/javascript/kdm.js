@@ -256,7 +256,7 @@
                     modal: true,
                     buttons: {
                         "Delete": function() {
-                            var tab = $(this).data('tab').tab;
+                            var tab = $(this).data('tab');
                             deleteTab($rootScope, tab.id);
                             $(this).dialog("close");
                         },
@@ -265,7 +265,7 @@
                         }
                     },
                     open: function(event, ui) {
-                        var tab = $(this).data('tab').tab;
+                        var tab = $(this).data('tab');
                         var name = "Unamed " + tab.type;
                         if (tab.name !== undefined && tab.name.name !== undefined) {
                             name = tab.name.name;
