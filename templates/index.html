@@ -39,7 +39,7 @@
             </a>
         </li>
         <li ng-repeat="tab in tabs track by $index">
-          <a show-tab="" data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : tab.type === "char" ? "Unnamed Char" : "Unnamed Settlement"}} <span ng-click="deletetab(tab.id)" type="button"> x </span></a>
+          <a show-tab="" data-toggle="tab" href="#{{tab.id}}">{{tab.name.name ? tab.name.name : tab.type === "char" ? "Unnamed Char" : "Unnamed Settlement"}} <button class="btn btn-default btn-xs" ng-click="deleteTab(tab)" type="button"> x </button></a>
         </li>
       </ul>
     </div>
@@ -78,6 +78,10 @@
     
     <div id="clear-dialog" title="Clear your records and start again?" ng-cloak>
       <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to clear all the records?</p>
+    </div>
+
+    <div id="confirm-delete-dialog" title="Confirm tab deletion">
+      <p>Are you sure you want to delete {{tabtodelete}}</p>
     </div>
     
     <div ng-hide="true">

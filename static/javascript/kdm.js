@@ -53,8 +53,10 @@
             addNewSettlement($rootScope);
         }
         
-        $rootScope.deletetab = function(tabid) {
-            deleteTab($rootScope, tabid);
+        $rootScope.deleteTab = function(tab) {
+            $('#confirm-delete-dialog').data('tab', {
+                tab
+            }).dialog('open')
         }
         
         $rootScope.removeEvent = function(timeline, year, event) {
@@ -243,6 +245,33 @@
                 $("#clear-dialog").dialog("open");
             });
             
+            $(function() {
+                $("#confirm-delete-dialog").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    height: 140,
+                    modal: true,
+                    buttons: {
+                        "Delete": function() {
+                            var tab = $(this).data('tab').tab;
+                            deleteTab($rootScope, tab.id);
+                            $(this).dialog("close");
+                        },
+                        Cancel: function() {
+                            $(this).dialog("close");
+                        }
+                    },
+                    open: function(event, ui) {
+                        var tab = $(this).data('tab').tab;
+                        var name = "Unamed " + tab.type;
+                        if (tab.name !== undefined && tab.name.name !== undefined) {
+                            name = tab.name.name;
+                        }
+                        $rootScope.tabtodelete = name;
+                    }
+                });
+            });
+            
             $('.nav-tabs a').click(function(e) {
                 e.preventDefault()
                 $(this).tab('show')
@@ -339,6 +368,7 @@
         if (index !== -1) {
             tabs.splice(index, 1);
         }
+        $rootScope.$apply();
     }
     
     function createEmptyCharSheet(id) {
