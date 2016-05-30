@@ -200,12 +200,13 @@
                                     eventName: setEvent
                                 });
                             }
+                            $rootScope.$apply();
                             $(this).dialog("close");
                         } else {
                             $rootScope.addtimeline.error = true;
                             $rootScope.addtimeline.errormsg = msgs.join(", ");
+                            $rootScope.$apply();
                         }
-                        $rootScope.$apply();
                     },
                     Cancel: function() {
                         $(this).dialog("close");
@@ -323,6 +324,7 @@
             scope.$watch('tabs[' + tabIndex + '].population.lost', watchCheckboxArray, true);
             scope.$watch('tabs[' + tabIndex + '].deathCount', watchCheckboxArray, true);
             scope.$watch('tabs[' + tabIndex + '].timeline', watchCheckboxArray, true);
+            scope.$watch('tabs[' + tabIndex + '].principles', watchPrinciples, true);
         }
     }
     
@@ -351,6 +353,22 @@
             } else {
                 for (var i = newVal.length - 1; i > index; i--) {
                     newVal[i].value = false;
+                }
+            }
+        }
+    }
+    
+    function watchPrinciples(newVal, oldVal) {
+        if (newVal !== oldVal) {
+            var newCur;
+            var oldCur;
+            for (var i = 0; i < newVal.length; i++) {
+                newCur = newVal[i];
+                oldCur = oldVal[i];
+                if (newCur.choiceleft && oldCur.choiceright) {
+                    newCur.choiceright = false;
+                } else if (newCur.choiceright && oldCur.choiceleft) {
+                    newCur.choiceleft = false;
                 }
             }
         }

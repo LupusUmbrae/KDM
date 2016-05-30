@@ -11,7 +11,7 @@
                 <input type="text" ng-readonly="principle.disabled" class="underlined fullwidth left-align" ng-model="principle.name">
             </div>
             <div class="col-xs-1">
-                <label ng-show="principle.left" class="radio-inline"><input type="radio" name="{{principle.name}}" value="{{principle.left}}" ng-model="principle.choice" class="radio-box"><span></span></label>
+                <label ng-show="principle.left"><input type="checkbox" name="{{principle.name}}" value="{{principle.left}}" ng-model="principle.choiceleft" ><span></span></label>
             </div>
             <div class="col-xs-3">
                 <input type="text" ng-readonly="principle.disabled" class="underlined left-align" ng-model="principle.left">
@@ -20,7 +20,7 @@
                 <small>or</small>
             </div>
             <div class="col-xs-1">
-                <label ng-show="principle.right" class="radio-inline"><input type="radio" name="{{principle.name}}" value="{{principle.right}}" ng-model="principle.choice" class="radio-box"><span></span></label>
+                <label ng-show="principle.right"><input type="checkbox" name="{{principle.name}}" value="{{principle.right}}" ng-model="principle.choiceright"><span></span></label>
             </div>
             <div class="col-xs-3">
                 <input type="text" ng-readonly="principle.disabled" class="underlined left-align" ng-model="principle.right">
