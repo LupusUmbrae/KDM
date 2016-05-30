@@ -100,6 +100,8 @@
         $rootScope.timeline.options.push("Nemesis");
         
         $(function() {
+            new Clipboard('.btn');
+            
             $('.dropdown-submenu').click(
             function(event) {
                 // stop bootstrap.js to hide the parents
@@ -128,7 +130,7 @@
                 }
             });
             
-            $("#loadjson").click(function() {
+            $("#loadjson-menu").click(function() {
                 $("#load-dialog").dialog("open");
             });
             
@@ -139,7 +141,7 @@
                 modal: true,
             });
             
-            $("#savejson").click(function() {
+            $("#savejson-menu").click(function() {
                 $('textarea#savejson').val(angular.element(document.body).scope().jsonify());
                 $("#save-dialog").dialog("open");
             });
@@ -359,7 +361,7 @@
     }
     
     function watchPrinciples(newVal, oldVal) {
-        if (newVal !== oldVal) {
+        if (newVal !== oldVal && newVal !== undefined && oldVal !== undefined) {
             var newCur;
             var oldCur;
             for (var i = 0; i < newVal.length; i++) {

@@ -27,8 +27,8 @@
                 <li class="dropdown-submenu">
                   <a>Import/Export</a>
                   <ul class="dropdown-menu">
-                    <li><a id="savejson" href="javascript:void(0)">To JSON</a></li>
-                    <li><a id="loadjson" href="javascript:void(0)">Load JSON</a></li>
+                    <li><a id="savejson-menu" href="javascript:void(0)">To JSON</a></li>
+                    <li><a id="loadjson-menu" href="javascript:void(0)">Load JSON</a></li>
                   </ul>
                 </li>
                 <li role="separator" class="divider"></li>
@@ -62,7 +62,10 @@
     
     <div id="save-dialog" title="From JSON" ng-cloak>
       <p>Copy JSON below</p>
-      <textarea rows="10" id="savejson" disabled="true"></textarea>
+      <textarea rows="10" id="savejson" readonly></textarea>
+      <button class="btn btn-default btn-copy" data-clipboard-target="#savejson">
+        Copy to clipboard
+      </button>
     </div>
 
     <div id="timeline-dialog" title="Add Event to Timeline">
@@ -96,6 +99,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js">
 </script>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js">
+</script>
+
     <script type="text/javascript" src='static/javascript/kdm.js'>
 </script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'>
