@@ -1,71 +1,48 @@
 (function() {
     'use strict';
-    
-    angular
-    .module('kdm', [
-    'kdm.config', 
-    ]);
-    
-    angular
-    .module('kdm.config', []);
-    
-    angular
-    .module('kdm.directives', []);
-    
-    angular
-    .module('kdm')
-    .run(run);
-    
+    angular.module('kdm', ['kdm.config', ]);
+    angular.module('kdm.config', []);
+    angular.module('kdm.directives', []);
+    angular.module('kdm').run(run);
     run.$inject = ['$rootScope', '$parse'];
-    
     function jsonify(scope) {
         return JSON.stringify(scope.tabs);
     }
-    
     function load(scope, json) {
         var parsed = JSON.parse(json);
         scope.tabs = parsed;
-        
         parsed.forEach(function(kdm, index) {
             watchTab(scope, kdm, index);
         })
-        
+        findMaxId(scope);
         scope.$apply();
     }
-    
     function run($rootScope, $parse) {
-        
         $rootScope.addtimeline = {}
-        
+        $rootScope.curTabIndex = 0;
         $rootScope.jsonify = function() {
             return jsonify($rootScope);
         }
-        
         $rootScope.load = function(json) {
             load($rootScope, json);
         }
-        
         $rootScope.addChar = function(json) {
             addNewChar($rootScope);
         }
-        
         $rootScope.addSettlement = function(json) {
             addNewSettlement($rootScope);
         }
-        
         $rootScope.deleteTab = function(tab) {
             $('#confirm-delete-dialog').data('tab', tab).dialog('open')
         }
-        
         $rootScope.removeEvent = function(timeline, year, event) {
             var index = timeline[year.year - 1].events.indexOf(event)
             if (index >= 0) {
                 timeline[year.year - 1].events.splice(index, 1);
             }
         }
-        
         $rootScope.inc = function(item, name) {
-            var name = typeof name  !=='undefined' ? name : "value";
+            var name = typeof name !== 'undefined' ? name : "value";
             if (item[name] === undefined) {
                 item[name] = 0
             } else if (typeof item[name] === "string") {
@@ -73,9 +50,8 @@
             }
             item[name] += 1;
         }
-        
         $rootScope.dec = function(item, name) {
-            var name = typeof name  !=='undefined' ? name : "value";
+            var name = typeof name !== 'undefined' ? name : "value";
             if (item[name] === undefined) {
                 item[name] = 0
             } else if (typeof item[name] === "string") {
@@ -83,9 +59,7 @@
             }
             item[name] -= 1;
         }
-        
         $rootScope.tabs = [];
-        
         var local = localStorage.getItem('kdm');
         if (local == null ) {
             addNewSettlement($rootScope);
@@ -93,17 +67,13 @@
         } else {
             load($rootScope, local);
         }
-        
         $rootScope.timeline = {};
         $rootScope.timeline.options = [];
         $rootScope.timeline.options.push("Story");
         $rootScope.timeline.options.push("Nemesis");
-        
         $(function() {
             new Clipboard('.btn');
-            
-            $('.dropdown-submenu').click(
-            function(event) {
+            $('.dropdown-submenu').click(function(event) {
                 // stop bootstrap.js to hide the parents
                 event.stopPropagation();
                 // hide the open children
@@ -113,7 +83,6 @@
                 // this is also open (or was)
                 $(this).toggleClass('open');
             });
-            
             $("#load-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
@@ -129,23 +98,19 @@
                     }
                 }
             });
-            
             $("#loadjson-menu").click(function() {
                 $("#load-dialog").dialog("open");
             });
-            
             $("#save-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
                 height: 400,
                 modal: true,
             });
-            
             $("#savejson-menu").click(function() {
                 $('textarea#savejson').val(angular.element(document.body).scope().jsonify());
                 $("#save-dialog").dialog("open");
             });
-            
             $("#timeline-dialog").dialog({
                 autoOpen: false,
                 resizable: true,
@@ -160,13 +125,10 @@
                     "Add Event": function() {
                         var openSettlement = $("div.active");
                         var settlementId = openSettlement.attr("id");
-                        
                         var setYear = parseInt($rootScope.addtimeline.year, 10);
                         var setType = $rootScope.addtimeline.option;
                         var setEvent = $rootScope.addtimeline.event;
-                        
                         console.log(setType)
-                        
                         var ok = true;
                         var msgs = [];
                         if (isNaN(setYear) || setYear < 0 || setYear > 40) {
@@ -178,7 +140,6 @@
                                 msgs.push("Year is out of range")
                             }
                         }
-                        
                         if (setEvent === undefined || setEvent === "") {
                             ok = false;
                             $rootScope.addtimeline.eventok = false;
@@ -186,16 +147,13 @@
                         }
                         if (ok) {
                             var tab;
-                            
                             $rootScope.addtimeline.error = false;
                             $rootScope.addtimeline.errormsg = "";
-                            
                             $rootScope.tabs.forEach(function(curTab) {
                                 if (curTab.id === settlementId) {
                                     tab = curTab;
                                 }
                             });
-                            
                             if (tab.type === "settlement") {
                                 tab.timeline[setYear - 1].events.push({
                                     type: setType.toLowerCase(),
@@ -221,7 +179,6 @@
                     $rootScope.$apply();
                 }
             });
-            
             $(function() {
                 $("#clear-dialog").dialog({
                     autoOpen: false,
@@ -243,11 +200,9 @@
                     }
                 });
             });
-            
             $('#clearAll').click(function() {
                 $("#clear-dialog").dialog("open");
             });
-            
             $(function() {
                 $("#confirm-delete-dialog").dialog({
                     autoOpen: false,
@@ -274,32 +229,39 @@
                     }
                 });
             });
-            
             $('.nav-tabs a').click(function(e) {
                 e.preventDefault()
                 $(this).tab('show')
             });
         });
-        
-        
         $rootScope.$watch('tabs', function(newVal, oldVal) {
-            if (newVal !== undefined && oldVal !== undefined && newVal !== oldVal) 
-            {
+            if (newVal !== undefined && oldVal !== undefined && newVal !== oldVal) {
                 localStorage.setItem('kdm', jsonify($rootScope));
             }
         }, true);
     }
-    
     function addNewChar(scope) {
-        var id = "tab-" + scope.tabs.length;
+        var id = "tab-" + scope.curTabIndex;
+        scope.curTabIndex += 1;
         addToTabs(scope, createEmptyCharSheet(id));
     }
-    
     function addNewSettlement(scope) {
-        var id = "tab-" + scope.tabs.length;
+        var id = "tab-" + scope.curTabIndex;
+        scope.curTabIndex += 1;
         addToTabs(scope, createEmptySettlement(id));
     }
-    
+    function findMaxId(scope) {
+        var tabs = scope.tabs;
+        var max = -1;
+        tabs.forEach(function(tab) {
+            var id = parseInt(tab.id.substring(4), 10);
+            if (id > max) {
+                max = id;
+            }
+        });
+        max++;
+        scope.curTabIndex = max;
+    }
     function addTimelineEvent(settlement, year, type, name) {
         settlement.timeline[year - 1].events.push({
             year: year,
@@ -307,15 +269,12 @@
             name: name
         });
     }
-    
     function addToTabs(scope, kdm) {
         var tabs = scope.tabs;
         tabs.push(kdm);
         var lastIndex = tabs.length - 1;
-        
         watchTab(scope, kdm, lastIndex);
     }
-    
     function watchTab(scope, kdm, tabIndex) {
         if (kdm.type === "char") {
             scope.$watch('tabs[' + tabIndex + '].courage.levels', watchCheckboxArray, true);
@@ -329,24 +288,19 @@
             scope.$watch('tabs[' + tabIndex + '].principles', watchPrinciples, true);
         }
     }
-    
     function watchCheckboxArray(newVal, oldVal) {
-        if (newVal !== undefined && oldVal !== undefined && newVal !== oldVal) 
-        {
+        if (newVal !== undefined && oldVal !== undefined && newVal !== oldVal) {
             // find the changed index
             var index = -1;
-            for (var i = 0; i < newVal.length; i++) 
-            {
+            for (var i = 0; i < newVal.length; i++) {
                 if (oldVal[i].value !== newVal[i].value) {
                     index = i;
                     break;
                 }
             }
-            
             if (index === -1) {
                 return;
             }
-            
             var value = newVal[index].value;
             if (value) {
                 for (var i = 0; i < index; i++) {
@@ -359,7 +313,6 @@
             }
         }
     }
-    
     function watchPrinciples(newVal, oldVal) {
         if (newVal !== oldVal && newVal !== undefined && oldVal !== undefined) {
             var newCur;
@@ -375,7 +328,6 @@
             }
         }
     }
-    
     function deleteTab($rootScope, tabid) {
         var tabs = $rootScope.tabs;
         var index = -1;
@@ -390,20 +342,16 @@
         }
         $rootScope.$apply();
     }
-    
     function createEmptyCharSheet(id) {
-        
         var kdm = loadFromFile("static/json/character.json");
         kdm.id = id;
         return kdm;
     }
-    
     function createEmptySettlement(id) {
         var kdm = loadFromFile("static/json/settlement.json");
         kdm.id = id;
         return kdm;
     }
-    
     function loadFromFile(my_url) {
         var json = (function() {
             var json = null ;
