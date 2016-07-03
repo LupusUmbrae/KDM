@@ -1,0 +1,10 @@
+<div id="timeline-dialog" title="Add Event to Timeline">
+  <div class="form-group" >
+    <input ng-model="addtimeline.year" ng-class="{'has-error': !addtimeline.yearok}" type="text" placeholder="Year" class="noborder left-align" maxlength="2" size="2">
+    <select ng-model="addtimeline.option">
+      <option ng-repeat="option in timeline.options" value="{{option}}">{{option}}</option>
+    </select>
+    <input id="event" type="text" ng-model="addtimeline.event" ng-class="{'has-error': !addtimeline.eventok}" placeholder="Event" class="underlined left-align" style="width: 100%;">
+    <span class="has-error" ng-show="addtimeline.error">{{addtimeline.errormsg}}</span>
+  </div>
+</div>

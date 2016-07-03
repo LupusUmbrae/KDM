@@ -55,37 +55,11 @@
       </div>
     </div>
     
-    <div id="load-dialog" title="From JSON" ng-cloak>
-      <p>Paste JSON below</p>
-      <textarea rows="10" id="loadjson"></textarea>
-    </div>
-    
-    <div id="save-dialog" title="From JSON" ng-cloak>
-      <p>Copy JSON below</p>
-      <textarea rows="10" id="savejson" readonly></textarea>
-      <button class="btn btn-default btn-copy" data-clipboard-target="#savejson">
-        Copy to clipboard
-      </button>
-    </div>
-
-    <div id="timeline-dialog" title="Add Event to Timeline">
-      <div class="form-group" >
-        <input ng-model="addtimeline.year" ng-class="{'has-error': !addtimeline.yearok}" type="text" placeholder="Year" class="noborder left-align" maxlength="2" size="2">
-        <select ng-model="addtimeline.option">
-          <option ng-repeat="option in timeline.options" value="{{option}}">{{option}}</option>
-        </select>
-        <input id="event" type="text" ng-model="addtimeline.event" ng-class="{'has-error': !addtimeline.eventok}" placeholder="Event" class="underlined left-align" style="width: 100%;">
-        <span class="has-error" ng-show="addtimeline.error">{{addtimeline.errormsg}}</span>
-      </div>
-    </div>
-    
-    <div id="clear-dialog" title="Clear your records and start again?" ng-cloak>
-      <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to clear all the records?</p>
-    </div>
-
-    <div id="confirm-delete-dialog" title="Confirm tab deletion">
-      <p>Are you sure you want to delete {{tabtodelete}}</p>
-    </div>
+    <ng-include src="'static/templates/dialogs/load.html'" />
+    <ng-include src="'static/templates/dialogs/save.html'" />
+    <ng-include src="'static/templates/dialogs/timeline.html'" />
+    <ng-include src="'static/templates/dialogs/clear.html'" />
+    <ng-include src="'static/templates/dialogs/confirmdelete.html'" />
     
     <div ng-hide="true">
     {% endraw %}
@@ -103,6 +77,8 @@
 </script>
 
     <script type="text/javascript" src='static/javascript/kdm.js'>
+</script>
+    <script type="text/javascript" src='static/javascript/kdm.dialogs.js'>
 </script>
     <script type="text/javascript" src='static/javascript/kdm.config.js'>
 </script>
